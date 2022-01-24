@@ -25,32 +25,29 @@ public class CoursController {
 
 	@Autowired
 	ICoursService coursService;
-	
+
 	@GetMapping("/cours")
 	public List<Cours> findAll() {
 		return coursService.findAll();
 	}
-	
+
 	@GetMapping("/cours/{id}")
 	public Cours findOne(@PathVariable Long id) {
 		return coursService.findOne(id);
 	}
-	
+
 	@DeleteMapping("/cours/{id}")
 	public void deleteCours(@PathVariable Long id) {
 		coursService.delete(id);
 	}
-	
+
 	// WON'T BE USED ?
 	@PostMapping("/cours")
-	public String saveCours(
-			@RequestParam(required = false) String nomCours,
-			@RequestParam(required = false) String matiere,
-			@RequestParam(required = false) Double nbrHeure,
+	public String saveCours(@RequestParam(required = false) String nomCours,
+			@RequestParam(required = false) String matiere, @RequestParam(required = false) Double nbrHeure,
 			@RequestParam(required = false) MultipartFile fichier,
 			@RequestParam(required = false) Set<Evaluation> evaluations,
-			@RequestParam(required = false) Set<Examen> examens
-			) {
+			@RequestParam(required = false) Set<Examen> examens) {
 		try {
 			Cours currentCours = new Cours();
 			currentCours.setNomCours(nomCours);
@@ -63,22 +60,18 @@ public class CoursController {
 			currentCours.setExamens(examens);
 			coursService.save(currentCours);
 			return "Uploaded";
-		}catch (Exception ex) {
+		} catch (Exception ex) {
 			ex.printStackTrace();
 			return "Failed";
 		}
 	}
-	
+
 	@PutMapping("/cours/{id}")
-	public String updateCours(
-			@PathVariable Long id,
-			@RequestParam(required = false) String nomCours,
-			@RequestParam(required = false) String matiere,
-			@RequestParam(required = false) Double nbrHeure,
+	public String updateCours(@PathVariable Long id, @RequestParam(required = false) String nomCours,
+			@RequestParam(required = false) String matiere, @RequestParam(required = false) Double nbrHeure,
 			@RequestParam(required = false) MultipartFile fichier,
 			@RequestParam(required = false) Set<Evaluation> evaluations,
-			@RequestParam(required = false) Set<Examen> examens
-			) {
+			@RequestParam(required = false) Set<Examen> examens) {
 		Cours currentCours = coursService.findOne(id);
 		try {
 			currentCours.setNomCours(nomCours);
@@ -91,9 +84,10 @@ public class CoursController {
 			currentCours.setExamens(examens);
 			coursService.save(currentCours);
 			return "Uploaded";
-		}catch (Exception ex) {
+		} catch (Exception ex) {
 			ex.printStackTrace();
 			return "Failed";
 		}
 	}
+
 }
