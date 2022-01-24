@@ -41,5 +41,10 @@ public class EtudiantService implements IEtudiantService{
 		
 	}
 
+	@Override
+	public List<Etudiant> listEtudiantsClasses(String idClasse) {
+		return etudiantRepository.listEtudiantsClasses(idClasse);
+	}
+
 
 }

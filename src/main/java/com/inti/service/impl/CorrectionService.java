@@ -36,4 +36,9 @@ public class CorrectionService implements ICorrectionService{
 		
 	}
 
+	@Override
+	public List<Correction> listnotesEleves(String idCorrection) {
+		return correctionRepository.listnotesEleves(idCorrection);
+	}
+
 }

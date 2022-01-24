@@ -17,10 +17,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.inti.entities.Correction;
 import com.inti.entities.Cours;
 import com.inti.entities.Enseignant;
+import com.inti.entities.Etudiant;
+import com.inti.entities.Examen;
 import com.inti.entities.Role;
+import com.inti.service.interfaces.ICorrectionService;
 import com.inti.service.interfaces.IEnseignantService;
+import com.inti.service.interfaces.IEtudiantService;
+import com.inti.service.interfaces.IExamenService;
 
 @RestController
 @CrossOrigin
@@ -28,6 +34,16 @@ public class EnseignantController {
 
 	@Autowired
 	IEnseignantService enseignantService;
+	
+	@Autowired
+	IEtudiantService etudiantService;
+	
+	@Autowired
+	IExamenService examenService;
+	
+	@Autowired
+	ICorrectionService correctionService;
+	
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -40,6 +56,25 @@ public class EnseignantController {
 	@GetMapping("/enseignants/{id}")
 	public Enseignant findOne(@PathVariable Long id) {
 		return enseignantService.findOne(id);
+	}
+	
+	@GetMapping("/enseignants/etudiants")
+	public List<Etudiant> listEtudiantsClasses(@RequestParam String id){
+		return etudiantService.listEtudiantsClasses(id);
+	}
+	//
+	@GetMapping("/enseignants/examens/fichierReponses")
+	public List<Examen> listReponsesEleves(@RequestParam String id){
+		return examenService.listReponsesEleves(id);
+	}
+	@GetMapping("/enseignants/examens/fichierExamens")
+	List<Examen> listExamen(@RequestParam String id){
+		return examenService.listExamen(id);
+	}
+	
+	@GetMapping("/enseignants/corrections/notes")
+	public List<Correction> listnotesEleves(String idCorrection){
+		return correctionService.listnotesEleves(idCorrection);
 	}
 
 	@DeleteMapping("/enseignants/{id}")

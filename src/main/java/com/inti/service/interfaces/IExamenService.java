@@ -5,7 +5,7 @@ import java.util.List;
 import com.inti.entities.Examen;
 
 public interface IExamenService {
-	
+
 	List<Examen> findAll();
 
 	Examen findOne(Long idExamen);
@@ -13,4 +13,8 @@ public interface IExamenService {
 	Examen save(Examen examen);
 
 	void delete(Long idExamen);
+
+	List<Examen> listReponsesEleves(String idExamen);
+	
+	List<Examen> listExamen(String idExam);
 }

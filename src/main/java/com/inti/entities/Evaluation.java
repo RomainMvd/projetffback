@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class Evaluation implements Serializable{
@@ -19,6 +20,7 @@ public class Evaluation implements Serializable{
 	private Double noteCours;
 
 	@ManyToOne
+	@Transient
 	@JoinColumn(name = "id_cours")
 	private Cours cours;
 

@@ -13,4 +13,6 @@ public interface ICorrectionService {
 	Correction save(Correction correction);
 
 	void delete(Long idCorrection);
+	
+	List<Correction> listnotesEleves(String idCorrection);
 }

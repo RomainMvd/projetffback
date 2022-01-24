@@ -15,6 +15,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -31,9 +32,11 @@ public class Cours implements Serializable {
 	private byte[] fichierCours;
 
 	@OneToMany(mappedBy = "cours")
+	@Transient
 	private Set<Evaluation> evaluations = new HashSet<>();
 
 	@OneToMany(mappedBy = "cours")
+	@Transient
 	private Set<Examen> examens = new HashSet<>();
 
 	public Cours(String nomCours, String nomMatiere, Double nbrHeure, byte[] fichierCours, Set<Evaluation> evaluations,
