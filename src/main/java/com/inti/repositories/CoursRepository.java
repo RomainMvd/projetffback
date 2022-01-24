@@ -15,5 +15,5 @@ public interface CoursRepository extends JpaRepository<Cours, Long>{
 	
 	public String commandeSQL = "SELECT * from cours WHERE id_cours IN (SELECT id_cours from lecture WHERE id_personne =?1)";
 	@Query(value = commandeSQL, nativeQuery = true)
-	List<Cours> listCours(Long id);
+	List<Cours> listCours(String id);
 }

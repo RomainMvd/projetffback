@@ -109,7 +109,7 @@ public class EtudiantController {
 		}
 	}
 	@GetMapping("/etudiants/cours")
-	public List<Cours> afficherCours(@RequestParam(required = false) Long id) {
+	public List<Cours> afficherCours(@RequestParam(required = false) String id) {
 		if (id == null) {
 			return coursService.findAll();
 		} else {

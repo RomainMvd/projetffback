@@ -41,7 +41,7 @@ public class CoursService implements ICoursService{
 		
 	}
 	@Override
-	public List<Cours> findByCours(Long id) {
+	public List<Cours> findByCours(String id) {
 		
 		return coursRepository.listCours(id);
 	}

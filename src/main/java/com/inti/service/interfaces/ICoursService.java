@@ -17,5 +17,5 @@ public interface ICoursService {
 
 	void delete(Long idCours);
 	
-	List<Cours> findByCours(Long id);
+	List<Cours> findByCours(String id);
 }
