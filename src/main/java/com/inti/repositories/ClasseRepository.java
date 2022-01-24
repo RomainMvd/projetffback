@@ -22,4 +22,8 @@ public interface ClasseRepository extends JpaRepository<Classe, Long>{
 	@Query(value = commandeSQL, nativeQuery = true)
 	Long getIdByName(String nomClasse);
 	
+	@Query(nativeQuery = true, value = "select * from classe where id_classe IN (select id_classe from personne_classe where id_personne IN (select id_personne from lecture"
+			+ " where id_cours=?1))")
+	List<Classe> getClasseByIdCours(String id); 
+	
 }

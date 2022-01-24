@@ -46,4 +46,9 @@ public class ClasseService implements IClasseService{
 		return classeRepository.getIdByName(nomClasse);
 	}
 
+	@Override
+	public List<Classe> getClasseByIdCours(String id) {
+		return classeRepository.getClasseByIdCours(id);
+	}
+
 }

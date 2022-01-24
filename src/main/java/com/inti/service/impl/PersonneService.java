@@ -47,5 +47,10 @@ public class PersonneService implements IPersonneService{
 		
 	}
 
+	@Override
+	public List<Personne> listPersonnesClasseType(String idClasse, String type) {
+		return personneRepository.listPersonnesClasseType(idClasse, type);
+	}
+
 
 }
