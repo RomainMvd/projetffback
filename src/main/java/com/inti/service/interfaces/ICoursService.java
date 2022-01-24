@@ -16,4 +16,6 @@ public interface ICoursService {
 	Cours save(Cours cours);
 
 	void delete(Long idCours);
+	
+	Cours insererCours(String id);
 }

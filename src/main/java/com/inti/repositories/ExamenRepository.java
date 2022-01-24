@@ -20,4 +20,8 @@ public interface ExamenRepository extends JpaRepository<Examen, Long>{
 	@Query(value = commandeSQL2, nativeQuery = true)
 	List<Examen> listExamen(String idExam);
 	
+	
+	
+	
+	
 }

@@ -24,6 +24,7 @@ import com.inti.entities.Etudiant;
 import com.inti.entities.Examen;
 import com.inti.entities.Role;
 import com.inti.service.interfaces.ICorrectionService;
+import com.inti.service.interfaces.ICoursService;
 import com.inti.service.interfaces.IEnseignantService;
 import com.inti.service.interfaces.IEtudiantService;
 import com.inti.service.interfaces.IExamenService;
@@ -43,6 +44,9 @@ public class EnseignantController {
 	
 	@Autowired
 	ICorrectionService correctionService;
+	
+	@Autowired
+	ICoursService coursService;
 	
 
 	@Autowired
@@ -80,6 +84,11 @@ public class EnseignantController {
 	@DeleteMapping("/enseignants/{id}")
 	public void deleteEnseignant(@PathVariable Long id) {
 		enseignantService.delete(id);
+	}
+	
+	@PostMapping("/enseignants/cours")
+	public Cours insererCours(@RequestParam(required = false) MultipartFile fichierCours) {
+		return coursService.insererCours(null);
 	}
 
 	@PostMapping("/enseignants")
