@@ -10,7 +10,7 @@ import com.inti.repositories.EtudiantRepository;
 import com.inti.service.interfaces.IEtudiantService;
 
 @Service
-public class EtudiantService implements IEtudiantService{
+public class EtudiantService implements IEtudiantService {
 
 	@Autowired
 	EtudiantRepository etudiantRepository;
@@ -38,8 +38,7 @@ public class EtudiantService implements IEtudiantService{
 	@Override
 	public void delete(Long idEtudiant) {
 		etudiantRepository.deleteById(idEtudiant);
-		
-	}
 
+	}
 
 }

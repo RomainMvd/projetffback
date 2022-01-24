@@ -16,4 +16,6 @@ public interface ICoursService {
 	Cours save(Cours cours);
 
 	void delete(Long idCours);
+	
+	List<Cours> findByCours(Long id);
 }

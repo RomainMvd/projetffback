@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.inti.entities.Cours;
 import com.inti.entities.Etudiant;
 import com.inti.entities.Role;
+import com.inti.service.interfaces.ICoursService;
 import com.inti.service.interfaces.IEtudiantService;
 
 @RestController
@@ -31,6 +32,9 @@ public class EtudiantController {
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	ICoursService coursService;
 
 	@GetMapping("/etudiants")
 	public List<Etudiant> findAll() {
@@ -104,5 +108,12 @@ public class EtudiantController {
 			return "failed";
 		}
 	}
-	
+	@GetMapping("/etudiants/cours")
+	public List<Cours> afficherCours(@RequestParam(required = false) Long id) {
+		if (id == null) {
+			return coursService.findAll();
+		} else {
+			return coursService.findByCours(id);
+		}
+	}
 }
