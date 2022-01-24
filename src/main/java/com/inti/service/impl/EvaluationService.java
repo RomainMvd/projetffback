@@ -10,8 +10,8 @@ import com.inti.repositories.EvaluationRepository;
 import com.inti.service.interfaces.IEvaluationService;
 
 @Service
-public class EvaluationService implements IEvaluationService{
-	
+public class EvaluationService implements IEvaluationService {
+
 	@Autowired
 	EvaluationRepository evaluationRepository;
 
@@ -33,7 +33,19 @@ public class EvaluationService implements IEvaluationService{
 	@Override
 	public void delete(Long idEvaluation) {
 		evaluationRepository.deleteById(idEvaluation);
-		
+
 	}
+
+	@Override
+	public List<Evaluation> listCommentaires(String idEvaluation) {
+
+		return evaluationRepository.listCommentaires(idEvaluation);
+	}
+
+//	@Override
+//	public Evaluation commenter(String commentaire, Double note_cours, Integer id_cours) {
+//		
+//		return evaluationRepository.commentCours(commentaire, note_cours, id_cours);
+//	}
 
 }

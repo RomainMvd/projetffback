@@ -12,16 +12,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.inti.entities.Cours;
 import com.inti.entities.Etudiant;
+import com.inti.entities.Evaluation;
 import com.inti.entities.Role;
 import com.inti.service.interfaces.ICoursService;
 import com.inti.service.interfaces.IEtudiantService;
+import com.inti.service.interfaces.IEvaluationService;
 
 @RestController
 @CrossOrigin
@@ -32,9 +33,12 @@ public class EtudiantController {
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	ICoursService coursService;
+
+	@Autowired
+	IEvaluationService evaluationService;
 
 	@GetMapping("/etudiants")
 	public List<Etudiant> findAll() {
@@ -80,14 +84,13 @@ public class EtudiantController {
 	}
 
 	@PutMapping("/etudiants/{id}")
-	public String updateEtudiant(@PathVariable Long id,
-			@RequestParam(required = false) String nom,
+	public String updateEtudiant(@PathVariable Long id, @RequestParam(required = false) String nom,
 			@RequestParam(required = false) String prenom, @RequestParam(required = false) String username,
 			@RequestParam(required = false) String password, @RequestParam(required = false) String email,
 			@RequestParam(required = false) Date dateNaissance, @RequestParam(required = false) MultipartFile photo,
 			@RequestParam(required = false) Double moyenne, @RequestParam(required = false) Set<Role> roles,
 			@RequestParam(required = false) Set<Cours> courss) {
-		Etudiant currentEtudiant= etudiantService.findOne(id);
+		Etudiant currentEtudiant = etudiantService.findOne(id);
 		try {
 			currentEtudiant.setNomPersonne(nom);
 			currentEtudiant.setPrenomPersonne(prenom);
@@ -108,6 +111,7 @@ public class EtudiantController {
 			return "failed";
 		}
 	}
+
 	@GetMapping("/etudiants/cours")
 	public List<Cours> afficherCours(@RequestParam(required = false) String id) {
 		if (id == null) {
@@ -116,4 +120,15 @@ public class EtudiantController {
 			return coursService.findByCours(id);
 		}
 	}
+
+	/* Ne marche pas pb : cle etrangere
+	@PostMapping("/etudiants/commentaires")
+	public Evaluation commenterCours(@RequestParam(required = false) String commentaire,
+			@RequestParam(required = false) Double note_cours, @RequestParam(required = false) Integer id_cours) {
+		Evaluation currentEval = new Evaluation();
+		currentEval.setCommentaire(commentaire);
+		currentEval.setNoteCours(note_cours);
+		return evaluationService.commenter(commentaire, note_cours, id_cours);
+	}
+	*/
 }
