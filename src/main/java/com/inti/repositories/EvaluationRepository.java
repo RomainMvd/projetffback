@@ -24,7 +24,7 @@ public interface EvaluationRepository extends JpaRepository<Evaluation, Long> {
 	@Modifying
 	@Transactional
 	@Query(value = commandeSQL2, nativeQuery = true)
-	String evaluerCours(String commentaire, String note_cours, String id_cours);
+	void evaluerCours(String commentaire, String note_cours, String id_cours);
 
 	public String commandeSQL3 = "UPDATE evaluation SET commentaire = ?1, id_cours = ?2, note_cours= ?3 where id_evaluation = ?4;";
 
