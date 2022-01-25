@@ -48,4 +48,9 @@ public class EvaluationService implements IEvaluationService {
 		return evaluationRepository.evaluerCours(commentaire, note_cours, id_cours);
 	}
 
+	@Override
+	public String updateCommentaire(String commentaire, String note_cours, String id_cours, String id_evaluation) {
+		return evaluationRepository.updateCommentaire(commentaire, note_cours, id_cours, id_evaluation);
+	}
+
 }

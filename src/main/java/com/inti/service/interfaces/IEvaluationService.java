@@ -17,4 +17,6 @@ public interface IEvaluationService {
 	List<Evaluation> listCommentaires(String idEvaluation);
 
 	String evaluerCours(String commentaire, String note_cours, String id_cours);
+	
+	String updateCommentaire(String commentaire, String note_cours, String id_cours, String id_evaluation);
 }
