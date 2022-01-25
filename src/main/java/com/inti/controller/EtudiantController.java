@@ -121,12 +121,14 @@ public class EtudiantController {
 		}
 	}
 
-	@PostMapping("/etudiants/commentaires")
-	public String evaluerCours(String commentaire, String note_cours, String id_cours) {
+
+	@PostMapping("/etudiants/cours/evaluations") // => /etudiants/cours/evaluations?commentaire=truc&?...
+	public String evaluerCours(@RequestParam(required=false) String commentaire,@RequestParam(required=false) String note_cours,@RequestParam(required=false) String id_cours) {
 		try {
 			evaluationService.evaluerCours(commentaire, note_cours, id_cours);
 			return "OK";
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return "PAS OK";
 		}
 	}
