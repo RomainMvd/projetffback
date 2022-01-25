@@ -37,9 +37,9 @@ public class EvaluationService implements IEvaluationService {
 	}
 
 	@Override
-	public List<Evaluation> listCommentaires(String idEvaluation) {
+	public List<Evaluation> listCommentaires(String idCours) {
 
-		return evaluationRepository.listCommentaires(idEvaluation);
+		return evaluationRepository.listCommentaires(idCours);
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class EvaluationService implements IEvaluationService {
 
 	@Override
 	public String updateCommentaire(String commentaire, String note_cours, String id_cours, String id_evaluation) {
-		return evaluationRepository.evaluerCours(commentaire, note_cours, id_cours);
+		return evaluationRepository.updateCommentaire(commentaire, note_cours, id_cours, id_evaluation);
 
 	}
 

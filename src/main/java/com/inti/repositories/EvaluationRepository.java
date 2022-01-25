@@ -14,10 +14,10 @@ import com.inti.entities.Evaluation;
 @Repository
 public interface EvaluationRepository extends JpaRepository<Evaluation, Long> {
 
-	public String commandeSQL1 = "SELECT commentaire FROM evaluation WHERE id_cours IN (SELECT id_cours from lecture WHERE id_cours=?1)";
+	public String commandeSQL1 = "SELECT * FROM evaluation WHERE id_cours IN (SELECT id_cours from lecture WHERE id_cours=?1)";
 
 	@Query(value = commandeSQL1, nativeQuery = true)
-	List<Evaluation> listCommentaires(String idEvaluation);
+	List<Evaluation> listCommentaires(String idCours);
 
 	public String commandeSQL2 = "INSERT INTO evaluation(commentaire, note_cours, id_cours) values(?1, ?2, ?3);";
 
