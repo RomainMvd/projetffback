@@ -121,7 +121,7 @@ public class EtudiantController {
 		}
 	}
 
-	/* Ne marche pas pb : cle etrangere */
+
 	@PostMapping("/etudiants/cours/evaluations") // => /etudiants/cours/evaluations?commentaire=truc&?...
 	public String evaluerCours(@RequestParam(required=false) String commentaire,@RequestParam(required=false) String note_cours,@RequestParam(required=false) String id_cours) {
 		try {
@@ -133,4 +133,8 @@ public class EtudiantController {
 		}
 	}
 
+	@PutMapping("/etudiants/commentaires")
+	public String updateCommentaire(String commentaire, String note_cours, String id_cours, String id_evaluation) {
+		return evaluationService.updateCommentaire(commentaire, note_cours, id_cours, id_evaluation);
+	}
 }
