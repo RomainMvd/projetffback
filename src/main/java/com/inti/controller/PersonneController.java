@@ -37,6 +37,16 @@ public class PersonneController {
 		personneService.delete(id);
 	}
 	
+	@GetMapping("/personnes/classe")
+	public List<Personne> listPersonnesClasse(@RequestParam(required = true) String id, @RequestParam(required = false) String type) {
+		if(type != null) {
+			return personneService.listPersonnesClasseType(id, type);
+		}
+		else {
+			return personneService.listPersonnesClasses(id);
+		}
+	}
+	
 	// TEST
 //	
 //	@Autowired

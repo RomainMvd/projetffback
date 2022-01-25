@@ -66,6 +66,11 @@ public class ClasseController {
 		return classeService.save(currentClasse);
 	}
 	
+	@GetMapping("/classes/cours")
+	public List<Classe> afficherClasseByIdCours(@RequestParam String id) {
+		return classeService.getClasseByIdCours(id);
+	}
+	
 	// Celle là non
 //	@PutMapping("/classes/{id}")
 //	public Classe updateClasse(@PathVariable Long id, @RequestBody Classe classe) {
