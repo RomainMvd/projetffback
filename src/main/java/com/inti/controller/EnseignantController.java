@@ -155,7 +155,7 @@ public class EnseignantController {
 	}
 
 	@GetMapping("/enseignants/cours/commentaires")
-	public List<Evaluation> listCommentaires(String idEvaluation) {
-		return evaluationService.listCommentaires(idEvaluation);
+	public List<Evaluation> listCommentaires(@RequestParam String idCours) {
+		return evaluationService.listCommentaires(idCours);
 	}
 }

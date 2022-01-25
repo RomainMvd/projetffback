@@ -14,7 +14,7 @@ public interface IEvaluationService {
 
 	void delete(Long idEvaluation);
 
-	List<Evaluation> listCommentaires(String idEvaluation);
+	List<Evaluation> listCommentaires(String idCours);
 
 	void evaluerCours(String commentaire, String note_cours, String id_cours);
 	
