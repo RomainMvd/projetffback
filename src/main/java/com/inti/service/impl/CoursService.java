@@ -40,6 +40,11 @@ public class CoursService implements ICoursService{
 		coursRepository.deleteById(idCours);
 		
 	}
+	@Override
+	public List<Cours> findByCours(String id) {
+		
+		return coursRepository.listCours(id);
+	}
 
 	@Override
 	public Cours insererCours(String id) {
