@@ -15,5 +15,5 @@ public interface IEtudiantService {
 	
 	Etudiant findByUsername(String username);
 	
-	//List<Etudiant> listEtudiantsClasses(String idClasse);
+	List<Etudiant> listEtudiantsClasses(String idClasse);
 }

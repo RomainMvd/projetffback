@@ -46,4 +46,9 @@ public class CoursService implements ICoursService{
 		return coursRepository.listCours(id);
 	}
 
+	@Override
+	public Cours insererCours(String id) {
+		return coursRepository.insererCours(id);
+	}
+
 }

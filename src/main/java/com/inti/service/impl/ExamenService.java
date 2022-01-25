@@ -36,4 +36,15 @@ public class ExamenService implements IExamenService{
 		
 	}
 
+	@Override
+	public List<Examen> listReponsesEleves(String idExamen) {
+		return examenRepository.listReponsesEleves(idExamen);
+	}
+
+	@Override
+	public List<Examen> listExamen(String idExam) {
+		
+		return examenRepository.listExamen(idExam);
+	}
+
 }

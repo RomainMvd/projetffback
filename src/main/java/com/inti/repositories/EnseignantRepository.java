@@ -17,4 +17,6 @@ public interface EnseignantRepository extends JpaRepository<Enseignant, Long>{
 	public String commandeSQL = "SELECT * from personne where id_personne IN (SELECT id_personne FROM personne_classe WHERE id_classe =?1) AND personne_type='enseignant'";
 	@Query(value = commandeSQL, nativeQuery = true)
 	List<Enseignant> listEnseignantsClasses(String idClasse);
+	
+
 }
