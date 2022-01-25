@@ -16,8 +16,10 @@ public interface ICoursService {
 
 	void delete(Long idCours);
 
-	Cours insererCours(String id);
+	List<Cours> findByCours(String idCours);
 
-	List<Cours> findByCours(String id);
+	Cours insererCours(String idCours, String idPersonne);
 
+	Cours updaterCours(String idCours, String idPersonne);
+	
 }

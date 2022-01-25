@@ -20,8 +20,10 @@ public interface ExamenRepository extends JpaRepository<Examen, Long>{
 	@Query(value = commandeSQL2, nativeQuery = true)
 	List<Examen> listExamen(String idExam);
 	
-	
-	
+	public String commandeSQL3= "INSERT INTO fichier_examen FROM examen WHERE id_cours IN (SELECT id_cours from lecture where id_personne="
+			+ "(select id_personne from personne where id_personne=?1 and personne_type='enseignant')) Value(?1) ";
+	@Query(value = commandeSQL3, nativeQuery = true)
+	Examen insererExamen(String idExam, String idPersonne);
 	
 	
 }
