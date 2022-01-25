@@ -42,10 +42,10 @@ public class EvaluationService implements IEvaluationService {
 		return evaluationRepository.listCommentaires(idEvaluation);
 	}
 
-//	@Override
-//	public Evaluation commenter(String commentaire, Double note_cours, Integer id_cours) {
-//		
-//		return evaluationRepository.commentCours(commentaire, note_cours, id_cours);
-//	}
+	@Override
+	public String evaluerCours(String commentaire, String note_cours, String id_cours) {
+
+		return evaluationRepository.evaluerCours(commentaire, note_cours, id_cours);
+	}
 
 }

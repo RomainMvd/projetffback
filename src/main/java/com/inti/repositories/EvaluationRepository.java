@@ -19,11 +19,11 @@ public interface EvaluationRepository extends JpaRepository<Evaluation, Long> {
 	@Query(value = commandeSQL1, nativeQuery = true)
 	List<Evaluation> listCommentaires(String idEvaluation);
 
-//	public String commandeSQL2 = "INSERT INTO evaluation WHERE id_evaluation =?1 VALUES(?2, ?3, ?4)";
-//
-//	@Modifying
-//	@Transactional
-//	@Query(value = commandeSQL2, nativeQuery = true)
-//	Evaluation commentCours(String commentaire, Double note_cours, Integer id_cours);
+	public String commandeSQL2 = "INSERT INTO evaluation WHERE id_evaluation =?1 VALUES(?2, ?3, ?4)";
+
+	@Modifying
+	@Transactional
+	@Query(value = commandeSQL2, nativeQuery = true)
+	String evaluerCours(String commentaire, String note_cours, String id_cours);
 
 }
