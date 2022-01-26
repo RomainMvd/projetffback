@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -121,20 +122,32 @@ public class EtudiantController {
 		}
 	}
 
+//	@PostMapping("/etudiants/cours/evaluations")
+//	public String evaluerCours(@RequestBody Evaluation evaluation) {
+//		evaluationService.save(evaluation);
+//		return "OK";
+//	}
 
 	@PostMapping("/etudiants/cours/evaluations") // => /etudiants/cours/evaluations?commentaire=truc&?...
-	public String evaluerCours(@RequestParam(required=false) String commentaire,@RequestParam(required=false) String note_cours,@RequestParam(required=false) String id_cours) {
-		try {
-			evaluationService.evaluerCours(commentaire, note_cours, id_cours);
-			return "OK";
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			return "PAS OK";
-		}
-	}
+    public String evaluerCours(@RequestParam(required=false) String commentaire,@RequestParam(required=false) String note_cours,@RequestParam(required=false) String id_cours) {
+        System.out.println(commentaire + note_cours + id_cours);
+        try {
+            Integer id = evaluationService.evaluerCours(commentaire, note_cours, id_cours);
+            return id.toString();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return "PAS OK";
+        }
+    }
 
-	@PutMapping("/etudiants/commentaires")
-	public String updateCommentaire(String commentaire, String note_cours, String id_cours, String id_evaluation) {
-		return evaluationService.updateCommentaire(commentaire, note_cours, id_cours, id_evaluation);
-	}
+	@PutMapping("/etudiants/cours/evaluations/{id_evaluation}")
+    public String updateCommentaire(@RequestParam String commentaire,@RequestParam String id_cours,@RequestParam String note_cours,@PathVariable String id_evaluation) {
+        try {
+        	Integer id = evaluationService.updateCommentaire(commentaire, id_cours, note_cours, id_evaluation);
+            return id.toString();
+        }catch (Exception ex) {
+            ex.printStackTrace();
+            return "pas Ok";
+        }
+    }
 }

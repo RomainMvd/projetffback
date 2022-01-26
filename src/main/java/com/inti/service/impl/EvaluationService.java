@@ -43,14 +43,14 @@ public class EvaluationService implements IEvaluationService {
 	}
 
 	@Override
-	public void evaluerCours(String commentaire, String note_cours, String id_cours) {
+	public Integer evaluerCours(String commentaire, String note_cours, String id_cours) {
+		return evaluationRepository.evaluerCours(commentaire, note_cours, id_cours);
 
 	}
 
 	@Override
-	public String updateCommentaire(String commentaire, String note_cours, String id_cours, String id_evaluation) {
-		return evaluationRepository.updateCommentaire(commentaire, note_cours, id_cours, id_evaluation);
-
+	public Integer updateCommentaire(String commentaire, String note_cours, String id_cours, String id_evaluation) {
+		return evaluationRepository.updateCommentaire(commentaire, id_cours, note_cours, id_evaluation);
 	}
 
 }
