@@ -47,4 +47,14 @@ public class ExamenService implements IExamenService{
 		return examenRepository.listExamen(idExam);
 	}
 
+	@Override
+	public Examen insererExamen(String idExam, String idPersonne) {
+		return examenRepository.insererExamen(idExam, idPersonne);
+	}
+
+	@Override
+	public Examen updaterExamen(String idExam, String idPersonne) {
+		return examenRepository.insererExamen(idExam, idPersonne);
+	}
+
 }

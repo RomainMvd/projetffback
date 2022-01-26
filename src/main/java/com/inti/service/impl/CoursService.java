@@ -42,13 +42,18 @@ public class CoursService implements ICoursService{
 	}
 	@Override
 	public List<Cours> findByCours(String id) {
-		
 		return coursRepository.listCours(id);
 	}
 
 	@Override
-	public Cours insererCours(String id) {
-		return coursRepository.insererCours(id);
+	public Cours insererCours(String idCours, String idPersonne, String fichierCours) {
+		return coursRepository.insererCours(idCours, idPersonne,fichierCours);
 	}
 
+	@Override
+	public Cours updaterCours(String idCours, String idPersonne,String fichierCours) {
+		return coursRepository.updaterCours(idCours, idPersonne,fichierCours);
+	}
+
+	
 }

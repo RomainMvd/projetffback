@@ -17,4 +17,8 @@ public interface IExamenService {
 	List<Examen> listReponsesEleves(String idExamen);
 	
 	List<Examen> listExamen(String idExam);
+	
+	Examen insererExamen(String idExam, String idPersonne);
+	
+	Examen updaterExamen(String idExam, String idPersonne);
 }

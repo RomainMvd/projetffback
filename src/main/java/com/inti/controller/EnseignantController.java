@@ -91,10 +91,58 @@ public class EnseignantController {
 	public void deleteEnseignant(@PathVariable Long id) {
 		enseignantService.delete(id);
 	}
-
+/*
 	@PostMapping("/enseignants/cours")
-	public Cours insererCours(@RequestParam(required = false) MultipartFile fichierCours) {
-		return coursService.insererCours(null);
+	public Cours insererCours(@RequestParam String idCours,@RequestParam String idPersonne, @RequestParam(required = false) MultipartFile fichierCours) {
+		try {
+			return coursService.insererCours(idCours, idPersonne, fichierCours);
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}*/
+	
+	@PutMapping("/enseignants/cours")
+	public Cours updaterCours(@RequestParam String idCours,@RequestParam String idPersonne, @RequestParam(required = false) MultipartFile fichierCours) {
+		Cours currentCours= coursService.findOne(Long.parseLong(idCours));
+		try {
+			currentCours.setFichierCours(fichierCours.getBytes());
+			return coursService.updaterCours(idCours, idPersonne, fichierCours.getBytes().toString());
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
+  
+	/*
+	@PostMapping("/enseignants/examens")
+	public Examen insererExamen(@RequestParam String idExam, @RequestParam String idPersonne, @RequestParam(required=false) MultipartFile fichierExamen) {
+		try {
+			Examen currentExamen = new Examen();
+			currentExamen.setFichierExamen(fichierExamen.getBytes());
+			
+			return examenService.insererExamen(idExam, idPersonne);
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	
+	}
+	*/
+	
+	@PutMapping("/enseignants/examens")
+	public Examen updaterExamen(@RequestParam String idExam, @RequestParam String idPersonne, @RequestParam(required =false) MultipartFile fichierExamen) {
+		Examen currentExamen= examenService.findOne(Long.parseLong(idExam));
+		try {
+			currentExamen.setFichierExamen(fichierExamen.getBytes());
+			return examenService.insererExamen(idExam, idPersonne);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	
 	}
 
 	@PostMapping("/enseignants")
