@@ -113,6 +113,8 @@ public class EtudiantController {
 		}
 	}
 
+	
+	
 	@GetMapping("/etudiants/cours")
 	public List<Cours> afficherCours(@RequestParam(required = false) String id) {
 		if (id == null) {
