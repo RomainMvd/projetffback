@@ -124,12 +124,24 @@ public class EtudiantController {
 	/* Ne marche pas pb : cle etrangere */
 	@PostMapping("/etudiants/cours/evaluations") // => /etudiants/cours/evaluations?commentaire=truc&?...
 	public String evaluerCours(@RequestParam(required=false) String commentaire,@RequestParam(required=false) String note_cours,@RequestParam(required=false) String id_cours) {
+		System.out.println(commentaire + note_cours + id_cours);
 		try {
-			evaluationService.evaluerCours(commentaire, note_cours, id_cours);
-			return "OK";
+			Integer id = evaluationService.evaluerCours(commentaire, note_cours, id_cours);
+			return id.toString();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return "PAS OK";
+		}
+	}
+	
+	@PutMapping("/etudiants/cours/{id_cours}/evaluations/{id_evaluation}")
+	public String updateCommentaire(@RequestParam String commentaire,@PathVariable String id_cours,@RequestParam String note_cours,@PathVariable String id_evaluation) {
+		try {
+			Integer id = evaluationService.updateCommentaire(commentaire, id_cours, note_cours, id_evaluation);
+			return id.toString();
+		}catch (Exception ex) {
+			ex.printStackTrace();
+			return "pas Ok";
 		}
 	}
 
