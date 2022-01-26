@@ -22,8 +22,10 @@ public interface EvaluationRepository extends JpaRepository<Evaluation, Long> {
 	// POST
 	public String commandeSQL2 = "INSERT INTO evaluation(commentaire, note_cours, id_cours) values(?1, ?2, ?3);";
 
+	/*
 	@Modifying
 	@Transactional
+
 	@Query(value = commandeSQL2, nativeQuery = true)
 	Integer evaluerCours(String commentaire, String note_cours, String id_cours);
 
@@ -35,4 +37,15 @@ public interface EvaluationRepository extends JpaRepository<Evaluation, Long> {
     @Transactional
     @Query(value = commandeSQL3, nativeQuery = true)
     Integer updateCommentaire(String commentaire, String id_cours, String note_cours, String id_evaluation);
+	@Query(value = "INSERT INTO evaluation(commentaire, note_cours, id_cours) values(?1,?2,?3)", nativeQuery = true)
+	Integer evaluerCours(String commentaire, String note_cours, String id_cours);
+
+	   // PUT
+    public String commandeSQL3 = "UPDATE evaluation SET commentaire=?1,note_cours=?3 where id_evaluation=?4 AND id_cours=?2";
+
+    @Modifying
+    @Transactional
+    @Query(value = commandeSQL3, nativeQuery = true)
+    Integer updateCommentaire(String commentaire, String id_cours, String note_cours, String id_evaluation);
+	*/
 }

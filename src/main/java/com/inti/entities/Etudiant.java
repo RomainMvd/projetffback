@@ -33,4 +33,11 @@ public class Etudiant extends Personne implements Serializable{
 		this.moyenne = moyenne;
 	}
 
+	@Override
+	public String toString() {
+		return super.toString() + "Etudiant [moyenne=" + moyenne + "]";
+	}
+	
+	
+
 }

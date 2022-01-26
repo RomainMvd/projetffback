@@ -66,10 +66,10 @@ public class EnseignantController {
 		return enseignantService.findOne(id);
 	}
 
-	@GetMapping("/enseignants/etudiants")
-	public List<Etudiant> listEtudiantsClasses(@RequestParam String id) {
-		return etudiantService.listEtudiantsClasses(id);
-	}
+//	@GetMapping("/enseignants/etudiants")
+//	public List<Etudiant> listEtudiantsClasses(@RequestParam String id) {
+//		return etudiantService.listEtudiantsClasses(id);
+//	}
 
 	//
 	@GetMapping("/enseignants/examens/fichierReponses")

@@ -24,6 +24,11 @@ public class EtudiantService implements IEtudiantService {
 	public List<Etudiant> findAll() {
 		return etudiantRepository.findAll();
 	}
+	
+	@Override
+	public List<Etudiant> findAllTri() {
+		return etudiantRepository.findAllTri();
+	}
 
 	@Override
 	public Etudiant findOne(Long idEtudiant) {
@@ -41,9 +46,51 @@ public class EtudiantService implements IEtudiantService {
   }
 
 	@Override
-	public List<Etudiant> listEtudiantsClasses(String idClasse) {
-		return etudiantRepository.listEtudiantsClasses(idClasse);
+	public List<Etudiant> afficherEtudiantsClasse(String idC) {
+		return etudiantRepository.afficherEtudiantsClasse(idC);
 	}
+	
+	@Override
+	public List<Etudiant> afficherEtudiantsClasseTri(String idC) {
+		return etudiantRepository.afficherEtudiantsClasseTri(idC);
+	}
+
+	@Override
+	public Etudiant afficherEtudiantClasse(String idC, String idE) {
+		return etudiantRepository.afficherEtudiantClasse(idC, idE);
+	}
+
+	@Override
+	public List<Etudiant> afficherEtudiantsCours(String idC) {
+		return etudiantRepository.afficherEtudiantsCours(idC);
+	}
+
+	@Override
+	public List<Etudiant> afficherEtudiantsCoursTri(String idC) {
+		return etudiantRepository.afficherEtudiantsCoursTri(idC);
+	}
+
+	@Override
+	public Etudiant afficherEtudiantCours(String idC, String idE) {
+		return etudiantRepository.afficherEtudiantCours(idC, idE);
+	}
+
+	@Override
+	public List<Etudiant> afficherEtudiantsEnseignant(String idEnseignant) {
+		return etudiantRepository.afficherEtudiantsEnseignant(idEnseignant);
+	}
+
+	@Override
+	public List<Etudiant> afficherEtudiantsEnseignantTri (String idEnseignant) {
+		return etudiantRepository.afficherEtudiantsEnseignantTri(idEnseignant);
+	}
+
+	@Override
+	public Etudiant afficherEtudiantEnseignant(String idEnseignant, String idEtudiant) {
+		return etudiantRepository.afficherEtudiantEnseignant(idEnseignant, idEtudiant);
+	}
+	
+	
 
 
 	

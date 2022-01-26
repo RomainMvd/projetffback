@@ -12,18 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.inti.entities.Cours;
 import com.inti.entities.Etudiant;
-import com.inti.entities.Evaluation;
 import com.inti.entities.Role;
-import com.inti.service.interfaces.ICoursService;
 import com.inti.service.interfaces.IEtudiantService;
-import com.inti.service.interfaces.IEvaluationService;
 
 @RestController
 @CrossOrigin
@@ -35,21 +31,116 @@ public class EtudiantController {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
-	@Autowired
-	ICoursService coursService;
-
-	@Autowired
-	IEvaluationService evaluationService;
-
 	@GetMapping("/etudiants")
-	public List<Etudiant> findAll() {
-		return etudiantService.findAll();
+	public String afficherEtudiant(@RequestParam(required = false) Long id, @RequestParam(required = false) String t) {
+		if (id != null) {
+			etudiantService.findOne(id);
+			return etudiantService.findOne(id).toString();
+		} else {
+			List<Etudiant> es;
+			String msg = "";
+			if (t == "bymoy") {
+				es = etudiantService.findAllTri();
+
+				return msg;
+			} else {
+				es = etudiantService.findAll();
+			}
+			for (Etudiant e : es) {
+				msg = msg + "\n" + e.toString();
+			}
+			return msg;
+
+		}
 	}
 
-	@GetMapping("/etudiants/{id}")
-	public Etudiant findOne(@PathVariable Long id) {
-		return etudiantService.findOne(id);
+	@GetMapping("/etudiants/classe/{idC}")
+	public String afficherEtudiantClasse(@PathVariable String idC, @RequestParam(required = false) String idE,
+			@RequestParam(required = false) String t) {
+		try {
+			if (idE != null) {
+				Etudiant e = etudiantService.afficherEtudiantClasse(idC, idE);
+				return e.toString();
+			} else {
+				String msg = "";
+				List<Etudiant> es;
+				if (t == "bymoy") {
+					es = etudiantService.afficherEtudiantsClasseTri(idC);
+
+				} else {
+					es = etudiantService.afficherEtudiantsClasse(idC);
+
+				}
+				for (Etudiant e : es) {
+					msg = msg + "\n" + e.toString();
+				}
+				return msg;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return "Error";
+		}
 	}
+
+	@GetMapping("/etudiants/cours/{idC}")
+	public String afficherEtudiantCours(@PathVariable String idC, @RequestParam(required = false) String idE,
+			@RequestParam String t) {
+		try {
+			if (idE != null) {
+				Etudiant e = etudiantService.afficherEtudiantCours(idC, idE);
+				return e.toString();
+			} else {
+				String msg = "";
+				List<Etudiant> es;
+				if (t == "bymoy") {
+					es = etudiantService.afficherEtudiantsCoursTri(idC);
+				} else {
+					es = etudiantService.afficherEtudiantsCours(idC);
+				}
+				for (Etudiant e : es) {
+					msg = msg + "\n" + e.toString();
+				}
+				return msg;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return "Error";
+		}
+	}
+
+	@GetMapping("/etudiants/enseignant/{idEnseignant}")
+	public String afficherEtudiantEnseignant(@PathVariable String idEnseignant,
+			@RequestParam(required = false) String idE, @RequestParam String t) {
+		try {
+			if (idE != null) {
+				Etudiant e = etudiantService.afficherEtudiantEnseignant(idEnseignant, idE);
+				return e.toString();
+			} else {
+				String msg = "";
+				List<Etudiant> es;
+				if (t == "bymoy") {
+					es = etudiantService.afficherEtudiantsEnseignantTri(idEnseignant);
+				} else {
+					es = etudiantService.afficherEtudiantsEnseignant(idEnseignant);
+				}
+				for (Etudiant e : es) {
+					msg = msg + "\n" + e.toString();
+				}
+				return msg;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return "Error";
+		}
+	}
+
+	/*
+	 * @GetMapping("/etudiants") public List<Etudiant> findAll() { return
+	 * etudiantService.findAll(); }
+	 * 
+	 * @GetMapping("/etudiants/{id}") public Etudiant findOne(@PathVariable Long id)
+	 * { return etudiantService.findOne(id); }
+	 */
 
 	@DeleteMapping("/etudiants/{id}")
 	public void deleteEtudiant(@PathVariable Long id) {
@@ -113,43 +204,33 @@ public class EtudiantController {
 		}
 	}
 
-	
-	
-	@GetMapping("/etudiants/cours")
-	public List<Cours> afficherCours(@RequestParam(required = false) String id) {
-		if (id == null) {
-			return coursService.findAll();
-		} else {
-			return coursService.findByCours(id);
-		}
-	}
-
-//	@PostMapping("/etudiants/cours/evaluations")
-//	public String evaluerCours(@RequestBody Evaluation evaluation) {
-//		evaluationService.save(evaluation);
-//		return "OK";
-//	}
-
-	@PostMapping("/etudiants/cours/evaluations") // => /etudiants/cours/evaluations?commentaire=truc&?...
-    public String evaluerCours(@RequestParam(required=false) String commentaire,@RequestParam(required=false) String note_cours,@RequestParam(required=false) String id_cours) {
-        System.out.println(commentaire + note_cours + id_cours);
-        try {
-            Integer id = evaluationService.evaluerCours(commentaire, note_cours, id_cours);
-            return id.toString();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return "PAS OK";
-        }
-    }
-
-	@PutMapping("/etudiants/cours/evaluations/{id_evaluation}")
-    public String updateCommentaire(@RequestParam String commentaire,@RequestParam String id_cours,@RequestParam String note_cours,@PathVariable String id_evaluation) {
-        try {
-        	Integer id = evaluationService.updateCommentaire(commentaire, id_cours, note_cours, id_evaluation);
-            return id.toString();
-        }catch (Exception ex) {
-            ex.printStackTrace();
-            return "pas Ok";
-        }
-    }
 }
+/*
+ * 
+ * @GetMapping("/etudiants/cours") public List<Cours>
+ * afficherCours(@RequestParam(required = false) String id) { if (id == null) {
+ * return coursService.findAll(); } else { return coursService.findByCours(id);
+ * } }
+ * 
+ * 
+ * 
+ * @PutMapping("/etudiants/cours/{id_cours}/evaluations/{id_evaluation}") public
+ * String updateCommentaire(@RequestParam String commentaire,@PathVariable
+ * String id_cours,@RequestParam String note_cours,@PathVariable String
+ * id_evaluation) { try { Integer id =
+ * evaluationService.updateCommentaire(commentaire, id_cours, note_cours,
+ * id_evaluation); return id.toString(); }catch (Exception ex) {
+ * ex.printStackTrace(); return "pas Ok"; } }
+ * 
+ * 
+ * @PostMapping("/etudiants/cours/evaluations") // =>
+ * /etudiants/cours/evaluations?commentaire=truc&?... public String
+ * evaluerCours(@RequestParam(required=false) String
+ * commentaire,@RequestParam(required=false) String
+ * note_cours,@RequestParam(required=false) String id_cours) {
+ * System.out.println(commentaire + note_cours + id_cours); try { Integer id =
+ * evaluationService.evaluerCours(commentaire, note_cours, id_cours); return
+ * id.toString(); } catch (Exception ex) { ex.printStackTrace(); return
+ * "PAS OK"; } }
+ * 
+ */

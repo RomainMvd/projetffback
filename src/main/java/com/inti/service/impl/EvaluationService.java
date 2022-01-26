@@ -44,13 +44,35 @@ public class EvaluationService implements IEvaluationService {
 
 	@Override
 	public Integer evaluerCours(String commentaire, String note_cours, String id_cours) {
-		return evaluationRepository.evaluerCours(commentaire, note_cours, id_cours);
-
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public Integer updateCommentaire(String commentaire, String note_cours, String id_cours, String id_evaluation) {
-		return evaluationRepository.updateCommentaire(commentaire, id_cours, note_cours, id_evaluation);
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+//	@Override
+//	public Integer evaluerCours(String commentaire, String note_cours, String id_cours) {
+//<<<<<<< HEAD
+//		return evaluationRepository.evaluerCours(commentaire, note_cours, id_cours);
+//
+//	}
+//
+//	@Override
+//	public Integer updateCommentaire(String commentaire, String note_cours, String id_cours, String id_evaluation) {
+//=======
+//		
+//		return evaluationRepository.evaluerCours(commentaire, note_cours, id_cours);
+//	}
+//
+//	@Override
+//	public Integer updateCommentaire(String commentaire, String id_cours, String note_cours, String id_evaluation) {
+//		System.out.println(commentaire + id_cours + note_cours + id_evaluation);
+//>>>>>>> localHenri
+//		return evaluationRepository.updateCommentaire(commentaire, id_cours, note_cours, id_evaluation);
+//	}
 
 }
