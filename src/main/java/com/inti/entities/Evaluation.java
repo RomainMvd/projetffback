@@ -20,7 +20,6 @@ public class Evaluation implements Serializable{
 	private Double noteCours;
 
 	@ManyToOne
-	@Transient
 	@JoinColumn(name = "id_cours")
 	private Cours cours;
 

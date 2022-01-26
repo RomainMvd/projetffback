@@ -85,32 +85,33 @@ public class EnseignantController {
 	public void deleteEnseignant(@PathVariable Long id) {
 		enseignantService.delete(id);
 	}
-	
+	/*
 	@PostMapping("/enseignants/cours")
 	public Cours insererCours(@RequestParam String idCours,@RequestParam String idPersonne, @RequestParam(required = false) MultipartFile fichierCours) {
 		try {
-			Cours currentCours = new Cours();
-			currentCours.setFichierCours(fichierCours.getBytes());
 			
-			return coursService.insererCours(idCours, idPersonne);
+			
+			
+			return coursService.insererCours(idCours, idPersonne, fichierCours);
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return null;
 		}
-	}
+	}*/
+	
 	@PutMapping("/enseignants/cours")
 	public Cours updaterCours(@RequestParam String idCours,@RequestParam String idPersonne, @RequestParam(required = false) MultipartFile fichierCours) {
 		Cours currentCours= coursService.findOne(Long.parseLong(idCours));
 		try {
 			currentCours.setFichierCours(fichierCours.getBytes());
-			return coursService.updaterCours(idCours, idPersonne);
+			return coursService.updaterCours(idCours, idPersonne, fichierCours.getBytes().toString());
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return null;
 		}
 	}
-	
+	/*
 	@PostMapping("/enseignants/examens")
 	public Examen insererExamen(@RequestParam String idExam, @RequestParam String idPersonne, @RequestParam(required=false) MultipartFile fichierExamen) {
 		try {
@@ -125,6 +126,7 @@ public class EnseignantController {
 		}
 	
 	}
+	*/
 	
 	@PutMapping("/enseignants/examens")
 	public Examen updaterExamen(@RequestParam String idExam, @RequestParam String idPersonne, @RequestParam(required =false) MultipartFile fichierExamen) {

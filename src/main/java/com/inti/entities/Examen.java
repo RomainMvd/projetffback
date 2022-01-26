@@ -32,7 +32,6 @@ public class Examen implements Serializable{
 	private byte[] fichierReponseExamen; // OUT
 	
 	@ManyToOne
-	@Transient
 	@JoinColumn(name = "id_cours")
 	private Cours cours;
 	

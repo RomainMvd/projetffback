@@ -46,13 +46,13 @@ public class CoursService implements ICoursService{
 	}
 
 	@Override
-	public Cours insererCours(String idCours, String idPersonne) {
-		return coursRepository.insererCours(idCours, idPersonne);
+	public Cours insererCours(String idCours, String idPersonne, String fichierCours) {
+		return coursRepository.insererCours(idCours, idPersonne,fichierCours);
 	}
 
 	@Override
-	public Cours updaterCours(String idCours, String idPersonne) {
-		return coursRepository.updaterCours(idCours, idPersonne);
+	public Cours updaterCours(String idCours, String idPersonne,String fichierCours) {
+		return coursRepository.updaterCours(idCours, idPersonne,fichierCours);
 	}
 
 	

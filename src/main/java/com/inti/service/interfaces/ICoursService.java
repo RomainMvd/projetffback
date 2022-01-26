@@ -18,8 +18,8 @@ public interface ICoursService {
 
 	List<Cours> findByCours(String idCours);
 
-	Cours insererCours(String idCours, String idPersonne);
+	Cours insererCours(String idCours, String idPersonne,String fichierCours);
 
-	Cours updaterCours(String idCours, String idPersonne);
+	Cours updaterCours(String idCours, String idPersonne, String fichierCours);
 	
 }
