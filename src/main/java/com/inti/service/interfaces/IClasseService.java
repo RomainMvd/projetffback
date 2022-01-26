@@ -17,4 +17,6 @@ public interface IClasseService {
 	Classe findByNomClasse(String nomClasse);
 	
 	Long getIdByName(String nomClasse);
+	
+	List<Classe> getClasseByIdCours(String id); 
 }

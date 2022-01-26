@@ -37,15 +37,20 @@ public class EvaluationService implements IEvaluationService {
 	}
 
 	@Override
-	public List<Evaluation> listCommentaires(String idEvaluation) {
+	public List<Evaluation> listCommentaires(String idCours) {
 
-		return evaluationRepository.listCommentaires(idEvaluation);
+		return evaluationRepository.listCommentaires(idCours);
 	}
 
-//	@Override
-//	public Evaluation commenter(String commentaire, Double note_cours, Integer id_cours) {
-//		
-//		return evaluationRepository.commentCours(commentaire, note_cours, id_cours);
-//	}
+	@Override
+	public void evaluerCours(String commentaire, String note_cours, String id_cours) {
+
+	}
+
+	@Override
+	public String updateCommentaire(String commentaire, String note_cours, String id_cours, String id_evaluation) {
+		return evaluationRepository.updateCommentaire(commentaire, note_cours, id_cours, id_evaluation);
+
+	}
 
 }

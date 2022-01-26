@@ -121,14 +121,20 @@ public class EtudiantController {
 		}
 	}
 
-	/* Ne marche pas pb : cle etrangere
-	@PostMapping("/etudiants/commentaires")
-	public Evaluation commenterCours(@RequestParam(required = false) String commentaire,
-			@RequestParam(required = false) Double note_cours, @RequestParam(required = false) Integer id_cours) {
-		Evaluation currentEval = new Evaluation();
-		currentEval.setCommentaire(commentaire);
-		currentEval.setNoteCours(note_cours);
-		return evaluationService.commenter(commentaire, note_cours, id_cours);
+
+	@PostMapping("/etudiants/cours/evaluations") // => /etudiants/cours/evaluations?commentaire=truc&?...
+	public String evaluerCours(@RequestParam(required=false) String commentaire,@RequestParam(required=false) String note_cours,@RequestParam(required=false) String id_cours) {
+		try {
+			evaluationService.evaluerCours(commentaire, note_cours, id_cours);
+			return "OK";
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return "PAS OK";
+		}
 	}
-	*/
+
+	@PutMapping("/etudiants/commentaires")
+	public String updateCommentaire(String commentaire, String note_cours, String id_cours, String id_evaluation) {
+		return evaluationService.updateCommentaire(commentaire, note_cours, id_cours, id_evaluation);
+	}
 }
