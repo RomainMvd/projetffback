@@ -32,7 +32,6 @@ public class Cours implements Serializable {
 	private byte[] fichierCours;
 
 	@OneToMany(mappedBy = "cours")
-	@Transient
 	private Set<Evaluation> evaluations = new HashSet<>();
 
 	@OneToMany(mappedBy = "cours")

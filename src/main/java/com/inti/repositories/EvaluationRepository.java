@@ -19,18 +19,20 @@ public interface EvaluationRepository extends JpaRepository<Evaluation, Long> {
 	@Query(value = commandeSQL1, nativeQuery = true)
 	List<Evaluation> listCommentaires(String idCours);
 
+	// POST
 	public String commandeSQL2 = "INSERT INTO evaluation(commentaire, note_cours, id_cours) values(?1, ?2, ?3);";
 
 	@Modifying
 	@Transactional
 	@Query(value = commandeSQL2, nativeQuery = true)
+	Integer evaluerCours(String commentaire, String note_cours, String id_cours);
 
-	void evaluerCours(String commentaire, String note_cours, String id_cours);
+	// PUT
+	public String commandeSQL3 = "UPDATE evaluation SET commentaire=?1,id_cours=?2,note_cours=?3 where id_evaluation=?4";
 
-	public String commandeSQL3 = "UPDATE evaluation SET commentaire = ?1, id_cours = ?2, note_cours= ?3 where id_evaluation = ?4;";
 
 	@Modifying
-	@Transactional
-	@Query(value = commandeSQL3, nativeQuery = true)
-	String updateCommentaire(String commentaire, String note_cours, String id_cours, String id_evaluation);
+    @Transactional
+    @Query(value = commandeSQL3, nativeQuery = true)
+    Integer updateCommentaire(String commentaire, String id_cours, String note_cours, String id_evaluation);
 }

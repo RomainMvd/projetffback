@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
 @Entity
-public class Evaluation implements Serializable{
+public class Evaluation implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +20,6 @@ public class Evaluation implements Serializable{
 	private Double noteCours;
 
 	@ManyToOne
-	@Transient
 	@JoinColumn(name = "id_cours")
 	private Cours cours;
 
@@ -77,5 +76,4 @@ public class Evaluation implements Serializable{
 				+ ", cours=" + cours + "]";
 	}
 
-	
 }
