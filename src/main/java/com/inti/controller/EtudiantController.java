@@ -133,14 +133,7 @@ public class EtudiantController {
 			return "Error";
 		}
 	}
-
-	/*
-	 * @GetMapping("/etudiants") public List<Etudiant> findAll() { return
-	 * etudiantService.findAll(); }
-	 * 
-	 * @GetMapping("/etudiants/{id}") public Etudiant findOne(@PathVariable Long id)
-	 * { return etudiantService.findOne(id); }
-	 */
+	
 
 	@DeleteMapping("/etudiants/{id}")
 	public void deleteEtudiant(@PathVariable Long id) {

@@ -42,13 +42,30 @@ public class ClasseService implements IClasseService{
 	}
 
 	@Override
-	public Long getIdByName(String nomClasse) {
-		return classeRepository.getIdByName(nomClasse);
+	public List<Classe> findAllTriNomClasse() {
+		return classeRepository.findAllTriNomClasse();
 	}
 
 	@Override
-	public List<Classe> getClasseByIdCours(String id) {
-		return classeRepository.getClasseByIdCours(id);
+	public List<Classe> afficherClassesPersonne(String idP) {
+		return classeRepository.afficherClassesPersonne(idP);
 	}
+
+	@Override
+	public List<Classe> afficherClassesPersonneType(String type) {
+		return classeRepository.afficherClassesPersonneType(type);
+	}
+
+	@Override
+	public List<Classe> afficherClassesCours(String idC) {
+		return classeRepository.afficherClassesCours(idC);
+	}
+
+	@Override
+	public List<Classe> afficherClassesEnseignantAdmin(String idE) {
+		return classeRepository.afficherClassesEnseignantAdmin(idE);
+	}
+
+	
 
 }

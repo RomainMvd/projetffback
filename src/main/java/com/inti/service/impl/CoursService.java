@@ -14,11 +14,6 @@ public class CoursService implements ICoursService{
 	
 	@Autowired
 	CoursRepository coursRepository;
-	
-	@Override
-	public Cours findByNomCours(String nomCours) {
-		return coursRepository.findByNomCours(nomCours);
-	}
 
 	@Override
 	public List<Cours> findAll() {
@@ -40,20 +35,68 @@ public class CoursService implements ICoursService{
 		coursRepository.deleteById(idCours);
 		
 	}
+
 	@Override
-	public List<Cours> findByCours(String id) {
-		return coursRepository.listCours(id);
+	public List<Cours> findAllTriCoursType() {
+		return coursRepository.findAllTriCoursType();
 	}
 
 	@Override
-	public Cours insererCours(String idCours, String idPersonne, String fichierCours) {
-		return coursRepository.insererCours(idCours, idPersonne,fichierCours);
+	public List<Cours> findAllTriNomCours() {
+		return coursRepository.findAllTriNomCours();
 	}
 
 	@Override
-	public Cours updaterCours(String idCours, String idPersonne,String fichierCours) {
-		return coursRepository.updaterCours(idCours, idPersonne,fichierCours);
+	public List<Cours> findAllTriNomMatiere() {
+		return coursRepository.findAllTriNomMatiere();
 	}
+
+	@Override
+	public List<Cours> findAllTriNbrHeure() {
+		return coursRepository.findAllTriNbrHeure();
+	}
+
+	@Override
+	public List<Cours> afficherCoursCoursType(String cType) {
+		return coursRepository.afficherCoursCoursType(cType);
+	}
+
+	@Override
+	public List<Cours> afficherCoursNomMatiere(String nMatiere) {
+		return coursRepository.afficherCoursNomMatiere(nMatiere);
+	}
+
+	@Override
+	public List<Cours> afficherCoursClasseEtudiants(String idC) {
+		return coursRepository.afficherCoursClasseEtudiants(idC);
+	}
+
+	@Override
+	public List<Cours> afficherCoursClasse(String idC) {
+		return coursRepository.afficherCoursClasse(idC);
+	}
+
+	@Override
+	public List<Cours> afficherCoursPersonne(String idP) {
+		return coursRepository.afficherCoursPersonne(idP);
+	}
+
+	@Override
+	public List<Cours> afficherCoursPersonnesType(String type) {
+		return coursRepository.afficherCoursPersonnesType(type);
+	}
+
+	@Override
+	public List<Cours> afficherCoursEnseignantsAdmin(String idR) {
+		return coursRepository.afficherCoursEnseignantsAdmin(idR);
+	}
+
+	@Override
+	public List<Cours> afficherCoursEnseignantAdmin(String idR, String idE) {
+		return coursRepository.afficherCoursEnseignantAdmin(idR, idE);
+	}
+	
+	
 
 	
 }

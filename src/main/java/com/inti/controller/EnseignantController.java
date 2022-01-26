@@ -103,17 +103,17 @@ public class EnseignantController {
 		}
 	}*/
 	
-	@PutMapping("/enseignants/cours")
-	public Cours updaterCours(@RequestParam String idCours,@RequestParam String idPersonne, @RequestParam(required = false) MultipartFile fichierCours) {
-		Cours currentCours= coursService.findOne(Long.parseLong(idCours));
-		try {
-			currentCours.setFichierCours(fichierCours.getBytes());
-			return coursService.updaterCours(idCours, idPersonne, fichierCours.getBytes().toString());
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			return null;
-		}
-	}
+//	@PutMapping("/enseignants/cours")
+//	public Cours updaterCours(@RequestParam String idCours,@RequestParam String idPersonne, @RequestParam(required = false) MultipartFile fichierCours) {
+//		Cours currentCours= coursService.findOne(Long.parseLong(idCours));
+//		try {
+//			currentCours.setFichierCours(fichierCours.getBytes());
+//			return coursService.updaterCours(idCours, idPersonne, fichierCours.getBytes().toString());
+//		} catch (Exception ex) {
+//			ex.printStackTrace();
+//			return null;
+//		}
+//	}
   
 	/*
 	@PostMapping("/enseignants/examens")
