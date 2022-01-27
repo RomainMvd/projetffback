@@ -306,8 +306,8 @@ public class EnseignantController {
 //		}
 //	}
 
-	/*
-	 * @PostMapping("/enseignants/examens") public Examen
+	/* 
+	 * @PostMapping("/enseignants/examens") public Examen -> "/examens/enseignants/{idEnseignant}
 	 * insererExamen(@RequestParam String idExam, @RequestParam String
 	 * idPersonne, @RequestParam(required=false) MultipartFile fichierExamen) { try
 	 * { Examen currentExamen = new Examen();

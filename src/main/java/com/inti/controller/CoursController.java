@@ -26,9 +26,32 @@ public class CoursController {
 	@Autowired
 	ICoursService coursService;
 
+//	@GetMapping("/cours")
+//	public List<Cours> findAll() {
+//		return coursService.findAll();
+//	}
+
 	@GetMapping("/cours")
-	public List<Cours> findAll() {
-		return coursService.findAll();
+	public List<Cours> afficherCours(@RequestParam(required = false) String t) {
+		if (t != null) {
+			switch (t) {
+
+			case "ct":
+				return coursService.findAllTriCoursType();
+
+			case "nc":
+				return coursService.findAllTriNomCours();
+
+			case "nm":
+				return coursService.findAllTriNomMatiere();
+			case "nh":
+				return coursService.findAllTriNbrHeure();
+			default:
+				return null;
+			}
+		} else {
+			return coursService.findAll();
+		}
 	}
 
 	// A retravailler
