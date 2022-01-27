@@ -41,28 +41,33 @@ public class EnseignantController {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
+//	@GetMapping("/enseignants")
+//	public String afficherEtudiant(@RequestParam(required = false) Long id, @RequestParam(required = false) String t,
+//			@RequestParam(required = false) String idR) {
+//		if (id != null) {
+//			enseignantService.findOne(id);
+//			return enseignantService.findOne(id).toString();
+//		} else {
+//			List<Enseignant> es;
+//			String msg = "";
+//			if (t != null) {
+//				es = enseignantService.findAllTri();
+//			} else if (idR != null) {
+//				es = enseignantService.afficherEnseignantsAdmin(idR);
+//			} else {
+//				es = enseignantService.findAll();
+//			}
+//			for (Enseignant e : es) {
+//				msg = msg + "\n" + e.toString();
+//			}
+//			return msg;
+//		}
+//	}
 	@GetMapping("/enseignants")
-	public String afficherEtudiant(@RequestParam(required = false) Long id, @RequestParam(required = false) String t,
-			@RequestParam(required = false) String idR) {
-		if (id != null) {
-			enseignantService.findOne(id);
-			return enseignantService.findOne(id).toString();
-		} else {
-			List<Enseignant> es;
-			String msg = "";
-			if (t != null) {
-				es = enseignantService.findAllTri();
-			} else if (idR != null) {
-				es = enseignantService.afficherEnseignantsAdmin(idR);
-			} else {
-				es = enseignantService.findAll();
-			}
-			for (Enseignant e : es) {
-				msg = msg + "\n" + e.toString();
-			}
-			return msg;
-		}
-	}
+    public List<Enseignant> findAll() {
+        return enseignantService.findAll()
+                ;
+    }
 
 	@GetMapping("/enseignants/classe/{idC}")
 	public String afficherEnseignantClasse(@PathVariable String idC, @RequestParam(required = false) String idE,
