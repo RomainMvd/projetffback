@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,9 +41,16 @@ public class EnseignantController {
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
+<<<<<<< HEAD
 
 //	@GetMapping("/enseignants")
 //	public String afficherEtudiant(@RequestParam(required = false) Long id, @RequestParam(required = false) String t,
+=======
+	
+	
+//	@GetMapping("/enseignants")
+//	public String afficherEnseignant(@RequestParam(required = false) Long id, @RequestParam(required = false) String t,
+>>>>>>> b27562f61cbb20f1ed4d58ee9c008e43ed72cc57
 //			@RequestParam(required = false) String idR) {
 //		if (id != null) {
 //			enseignantService.findOne(id);
@@ -63,94 +71,147 @@ public class EnseignantController {
 //			return msg;
 //		}
 //	}
+<<<<<<< HEAD
 	@GetMapping("/enseignants")
     public List<Enseignant> findAll() {
         return enseignantService.findAll()
                 ;
     }
-
-	@GetMapping("/enseignants/classe/{idC}")
-	public String afficherEnseignantClasse(@PathVariable String idC, @RequestParam(required = false) String idE,
-			@RequestParam(required = false) String idR) {
-		try {
-			if (idE != null) {
-				Enseignant e = enseignantService.afficherEnseignantClasse(idC, idE);
-				return e.toString();
-			} else {
-				String msg = "";
-				List<Enseignant> es;
-				if (idR != null) {
-					es = enseignantService.afficherEnseignantsAdminClasse(idC, idR);
-
-				} else {
-					es = enseignantService.afficherEnseignantsClasse(idC);
-
-				}
-				for (Enseignant e : es) {
-					msg = msg + "\n" + e.toString();
-				}
-				return msg;
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			return "Error";
+=======
+//	@GetMapping("/enseignants/cours/{idC}")
+//	public String afficherEnseignantCours(@PathVariable String idC, @RequestParam(required = false) String idE,
+//			@RequestParam(required = false) String idR) {
+//		try {
+//			if (idE != null) {
+//				Enseignant e = enseignantService.afficherEnseignantCours(idC, idE);
+//				return e.toString();
+//			} else {
+//				String msg = "";
+//				List<Enseignant> es;
+//				if (idR != null) {
+//					es = enseignantService.afficherEnseignantsAdminCours(idC, idR);
+//
+//				} else {
+//					es = enseignantService.afficherEnseignantsCours(idC);
+//
+//				}
+//				for (Enseignant e : es) {
+//					msg = msg + "\n" + e.toString();
+//				}
+//				return msg;
+//			}
+//		} catch (Exception ex) {
+//			ex.printStackTrace();
+//			return "Error";
+//		}
+//	}
+//	
+//	@GetMapping("/enseignants/etudiant/{idEtudiant}")
+//	public String afficherEnseignantEtudiant(@PathVariable String idEtudiant, @RequestParam(required = false) String idEnseignant,
+//			@RequestParam(required = false) String idR) {
+//		try {
+//			if (idEnseignant != null) {
+//				System.out.println(idEnseignant);
+//				Enseignant e = enseignantService.afficherEnseignantEtudiant(idEtudiant, idEnseignant);
+//				return e.toString();
+//			} else {
+//				String msg = "";
+//				List<Enseignant> es;
+//				if (idR != null) {
+//					es = enseignantService.afficherEnseignantsAdminEtudiant(idEtudiant, idR);
+//
+//				} else {
+//					es = enseignantService.afficherEnseignantsEtudiant(idEtudiant);
+//
+//				}
+//				for (Enseignant e : es) {
+//					msg = msg + "\n" + e.toString();
+//				}
+//				return msg;
+//			}
+//		} catch (Exception ex) {
+//			ex.printStackTrace();
+//			return "Error";
+//		}
+//	}
+	
+	@GetMapping("/enseignants")
+	public List<Enseignant> afficherEnseignants(@RequestParam(required = false) String a) {
+		if (a != null) {
+			// default admin role is 1
+			return enseignantService.afficherEnseignantsAdmin("1");
 		}
-	}
-
-	@GetMapping("/enseignants/cours/{idC}")
-	public String afficherEnseignantCours(@PathVariable String idC, @RequestParam(required = false) String idE,
-			@RequestParam(required = false) String idR) {
-		try {
-			if (idE != null) {
-				Enseignant e = enseignantService.afficherEnseignantCours(idC, idE);
-				return e.toString();
-			} else {
-				String msg = "";
-				List<Enseignant> es;
-				if (idR != null) {
-					es = enseignantService.afficherEnseignantsAdminCours(idC, idR);
-
-				} else {
-					es = enseignantService.afficherEnseignantsCours(idC);
-
-				}
-				for (Enseignant e : es) {
-					msg = msg + "\n" + e.toString();
-				}
-				return msg;
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			return "Error";
+		else {
+			return enseignantService.findAll();
 		}
 	}
 	
+	@GetMapping("/enseignants/{idE}")
+	public Enseignant afficherEnseignant(@PathVariable Long idE,@RequestParam(required = false) String a) {
+		if (a != null) {
+			return enseignantService.afficherEnseignantAdmin("1", idE.toString());
+		}
+		return enseignantService.findOne(idE);
+	}
+>>>>>>> b27562f61cbb20f1ed4d58ee9c008e43ed72cc57
+
+	@GetMapping("/enseignants/classe/{idC}")
+	public List<Enseignant> afficherEnseignantsClasse(@PathVariable String idC, @RequestParam(required = false) String a) {
+		if (a != null ) {
+			return enseignantService.afficherEnseignantsAdminClasse(idC, "1");
+		}
+		else {
+			return enseignantService.afficherEnseignantsClasse(idC);
+		}
+	}
+	
+	@GetMapping("/enseignants/classe/{idC}/{idE}")
+	public Enseignant afficherEnseignantClasse(@PathVariable String idC, @PathVariable String idE, @RequestParam(required = false) String a) {
+		if (a != null ) {
+			return enseignantService.afficherEnseignantAdminClasse(idC, "1", idE);
+		}
+		else {
+			return enseignantService.afficherEnseignantClasse(idC, idE);
+		}
+	}
+	
+	@GetMapping("/enseignants/cours/{idC}")
+	public List<Enseignant> afficherEnseignantsCours(@PathVariable String idC, @RequestParam(required = false) String a) {
+		if ( a != null) {
+			return enseignantService.afficherEnseignantsAdminCours(idC, "1");
+		}
+		else {
+			return enseignantService.afficherEnseignantsCours(idC);
+		}
+	}
+	
+	@GetMapping("/enseignants/cours/{idC}/{idE}")
+	public Enseignant afficherEnseignantCours(@PathVariable String idC, @PathVariable String idE, @RequestParam(required = false) String a) {
+		if (a != null) {
+			return enseignantService.afficherEnseignantAdminCours(idC, "1", idE);
+		}
+		else {
+			return enseignantService.afficherEnseignantCours(idC, idE);
+		}
+	}
+
 	@GetMapping("/enseignants/etudiant/{idEtudiant}")
-	public String afficherEnseignantEtudiant(@PathVariable String idEtudiant, @RequestParam(required = false) String idEnseignant,
-			@RequestParam(required = false) String idR) {
-		try {
-			if (idEnseignant != null) {
-				System.out.println(idEnseignant);
-				Enseignant e = enseignantService.afficherEnseignantEtudiant(idEtudiant, idEnseignant);
-				return e.toString();
-			} else {
-				String msg = "";
-				List<Enseignant> es;
-				if (idR != null) {
-					es = enseignantService.afficherEnseignantsAdminEtudiant(idEtudiant, idR);
-
-				} else {
-					es = enseignantService.afficherEnseignantsEtudiant(idEtudiant);
-
-				}
-				for (Enseignant e : es) {
-					msg = msg + "\n" + e.toString();
-				}
-				return msg;
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			return "Error";
+	public List<Enseignant> afficherEnseignantsEtudiant(@PathVariable String idEtudiant, @RequestParam(required = false) String a) {
+		if (a != null) {
+			return enseignantService.afficherEnseignantsAdminEtudiant(idEtudiant, "1");
+		}
+		else {
+			return enseignantService.afficherEnseignantsEtudiant(idEtudiant);
+		}
+	}
+	
+	@GetMapping("/enseignants/etudiant/{idEtudiant}/{idEnseignant}")
+	public Enseignant afficherEnseignantEtudiant(@PathVariable String idEtudiant, @PathVariable String idEnseignant, @RequestParam(required = false) String a) {
+		if ( a != null) {
+			return enseignantService.afficherEnseignantAdminEtudiant(idEtudiant, "1", idEnseignant);
+		}
+		else {
+			return enseignantService.afficherEnseignantEtudiant(idEtudiant, idEnseignant);
 		}
 	}
 	
