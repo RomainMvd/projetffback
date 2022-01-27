@@ -32,10 +32,13 @@ public interface CoursRepository extends JpaRepository<Cours, Long>{
 	List<Cours> afficherCoursNomMatiere(String nMatiere);
 	
 	// useless ?
-	@Query(value = "select * from cours where id_cours IN (select id_cours from lecture where id_personne IN (select id_personne from personne where personne_type='etudiant' and id_personne IN (select id_personne from personne_classe where id_classe=?1)))", nativeQuery = true)
+	@Query(value = "select * from cours where id_cours IN (select id_cours from lecture where id_cours IN (select id_cours from lecture group by id_cours Having count(*) = (select count(*) from personne where personne_type='etudiant' and id_personne IN (select id_personne from personne_classe where id_classe=?1)) and id_personne IN (select id_personne from personne where personne_type='etudiant' and id_personne IN (select id_personne from personne_classe where id_classe=?1))))", nativeQuery = true)
 	List<Cours> afficherCoursClasseEtudiants(String idC);
 	
 	@Query(value = "select * from cours where id_cours IN (select id_cours from lecture where id_personne IN (select id_personne from personne where id_personne IN (select id_personne from personne_classe where id_classe=?1)))", nativeQuery = true)
+	List<Cours> afficherCoursClasseAll(String idC);
+	
+	@Query(value = "select * from cours where id_cours IN (select id_cours from lecture where id_cours IN (select id_cours from lecture group by id_cours Having count(*) = (select count(id_personne) from personne_classe where id_classe=?1)) and id_personne IN (select id_personne from personne where id_personne IN (select id_personne from personne_classe where id_classe=?1)))", nativeQuery=true)
 	List<Cours> afficherCoursClasse(String idC);
 	
 	@Query(value = "select * from cours where id_cours IN (select id_cours from lecture where id_personne=?1)", nativeQuery = true)

@@ -33,6 +33,8 @@ public interface ICoursService {
 	
 	List<Cours> afficherCoursClasse(String idC);
 	
+	List<Cours> afficherCoursClasseAll(String idC);
+	
 	List<Cours> afficherCoursPersonne(String idP);
 	
 	List<Cours> afficherCoursPersonnesType(String type);

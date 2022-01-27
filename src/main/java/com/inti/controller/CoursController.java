@@ -31,6 +31,33 @@ public class CoursController {
 		return coursService.findAll();
 	}
 
+	// A retravailler
+	@GetMapping("/cours/classe/{idClasse}")
+	public String afficherCoursClasse(@PathVariable String idClasse, @RequestParam(required = false) String e) {
+		try {
+			List<Cours> cs;
+			String msg = "";
+			if (e != null) {
+				System.out.println("here");
+				cs = coursService.afficherCoursClasseEtudiants(idClasse);
+			} else {
+				cs = coursService.afficherCoursClasse(idClasse);
+			}
+			for (Cours c : cs) {
+				msg = msg + '\n' + c.toString();
+			}
+			return msg;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return "Error";
+		}
+	}
+
+	@GetMapping("/cours/etudiant/{idE}")
+	public String afficherCoursEtudiant(@PathVariable String idE) {
+		return "k";
+	}
+
 	@GetMapping("/cours/{id}")
 	public Cours findOne(@PathVariable Long id) {
 		return coursService.findOne(id);

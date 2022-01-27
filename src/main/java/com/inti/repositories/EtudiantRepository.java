@@ -17,6 +17,8 @@ public interface EtudiantRepository extends JpaRepository<Etudiant, Long> {
 	@Query(value = "SELECT * from personne where personne_type='etudiant' order by moyenne", nativeQuery = true)
 	List<Etudiant> findAllTri();
 	
+	List<Etudiant> findByOrderByMoyenneAsc();
+	
 	@Query(value = "SELECT * from personne where id_personne IN (SELECT id_personne FROM personne_classe WHERE id_classe =?1) AND personne_type='etudiant'", nativeQuery = true)
 	List<Etudiant> afficherEtudiantsClasse(String idC);
 	

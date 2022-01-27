@@ -39,10 +39,8 @@ public class EtudiantController {
 		} else {
 			List<Etudiant> es;
 			String msg = "";
-			if (t == "bymoy") {
+			if (t != null) {
 				es = etudiantService.findAllTri();
-
-				return msg;
 			} else {
 				es = etudiantService.findAll();
 			}
@@ -50,7 +48,6 @@ public class EtudiantController {
 				msg = msg + "\n" + e.toString();
 			}
 			return msg;
-
 		}
 	}
 
@@ -64,7 +61,7 @@ public class EtudiantController {
 			} else {
 				String msg = "";
 				List<Etudiant> es;
-				if (t == "bymoy") {
+				if (t != null) {
 					es = etudiantService.afficherEtudiantsClasseTri(idC);
 
 				} else {
@@ -84,7 +81,7 @@ public class EtudiantController {
 
 	@GetMapping("/etudiants/cours/{idC}")
 	public String afficherEtudiantCours(@PathVariable String idC, @RequestParam(required = false) String idE,
-			@RequestParam String t) {
+			@RequestParam(required = false) String t) {
 		try {
 			if (idE != null) {
 				Etudiant e = etudiantService.afficherEtudiantCours(idC, idE);
@@ -92,7 +89,7 @@ public class EtudiantController {
 			} else {
 				String msg = "";
 				List<Etudiant> es;
-				if (t == "bymoy") {
+				if (t != null) {
 					es = etudiantService.afficherEtudiantsCoursTri(idC);
 				} else {
 					es = etudiantService.afficherEtudiantsCours(idC);
@@ -118,7 +115,7 @@ public class EtudiantController {
 			} else {
 				String msg = "";
 				List<Etudiant> es;
-				if (t == "bymoy") {
+				if (t != null) {
 					es = etudiantService.afficherEtudiantsEnseignantTri(idEnseignant);
 				} else {
 					es = etudiantService.afficherEtudiantsEnseignant(idEnseignant);
@@ -133,7 +130,6 @@ public class EtudiantController {
 			return "Error";
 		}
 	}
-	
 
 	@DeleteMapping("/etudiants/{id}")
 	public void deleteEtudiant(@PathVariable Long id) {

@@ -39,112 +39,116 @@ public class EnseignantController {
 	IEnseignantService enseignantService;
 
 	@Autowired
-	IEtudiantService etudiantService;
-
-	@Autowired
-	IExamenService examenService;
-
-	@Autowired
-	ICorrectionService correctionService;
-
-	@Autowired
-	ICoursService coursService;
-
-	@Autowired
-	IEvaluationService evaluationService;
-
-	@Autowired
 	PasswordEncoder passwordEncoder;
 
 	@GetMapping("/enseignants")
-	public List<Enseignant> findAll() {
-		return enseignantService.findAll();
+	public String afficherEtudiant(@RequestParam(required = false) Long id, @RequestParam(required = false) String t,
+			@RequestParam(required = false) String idR) {
+		if (id != null) {
+			enseignantService.findOne(id);
+			return enseignantService.findOne(id).toString();
+		} else {
+			List<Enseignant> es;
+			String msg = "";
+			if (t != null) {
+				es = enseignantService.findAllTri();
+			} else if (idR != null) {
+				es = enseignantService.afficherEnseignantsAdmin(idR);
+			} else {
+				es = enseignantService.findAll();
+			}
+			for (Enseignant e : es) {
+				msg = msg + "\n" + e.toString();
+			}
+			return msg;
+		}
 	}
 
-	@GetMapping("/enseignants/{id}")
-	public Enseignant findOne(@PathVariable Long id) {
-		return enseignantService.findOne(id);
-	}
-
-//	@GetMapping("/enseignants/etudiants")
-//	public List<Etudiant> listEtudiantsClasses(@RequestParam String id) {
-//		return etudiantService.listEtudiantsClasses(id);
-//	}
-
-	//
-	@GetMapping("/enseignants/examens/fichierReponses")
-	public List<Examen> listReponsesEleves(@RequestParam String id) {
-		return examenService.listReponsesEleves(id);
-	}
-
-	@GetMapping("/enseignants/examens/fichierExamens")
-	List<Examen> listExamen(@RequestParam String id) {
-		return examenService.listExamen(id);
-	}
-
-	@GetMapping("/enseignants/corrections/notes")
-	public List<Correction> listnotesEleves(String idCorrection) {
-		return correctionService.listnotesEleves(idCorrection);
-	}
-
-	@DeleteMapping("/enseignants/{id}")
-	public void deleteEnseignant(@PathVariable Long id) {
-		enseignantService.delete(id);
-	}
-/*
-	@PostMapping("/enseignants/cours")
-	public Cours insererCours(@RequestParam String idCours,@RequestParam String idPersonne, @RequestParam(required = false) MultipartFile fichierCours) {
+	@GetMapping("/enseignants/classe/{idC}")
+	public String afficherEnseignantClasse(@PathVariable String idC, @RequestParam(required = false) String idE,
+			@RequestParam(required = false) String idR) {
 		try {
-			return coursService.insererCours(idCours, idPersonne, fichierCours);
-			
+			if (idE != null) {
+				Enseignant e = enseignantService.afficherEnseignantClasse(idC, idE);
+				return e.toString();
+			} else {
+				String msg = "";
+				List<Enseignant> es;
+				if (idR != null) {
+					es = enseignantService.afficherEnseignantsAdminClasse(idC, idR);
+
+				} else {
+					es = enseignantService.afficherEnseignantsClasse(idC);
+
+				}
+				for (Enseignant e : es) {
+					msg = msg + "\n" + e.toString();
+				}
+				return msg;
+			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			return null;
+			return "Error";
 		}
-	}*/
-	
-//	@PutMapping("/enseignants/cours")
-//	public Cours updaterCours(@RequestParam String idCours,@RequestParam String idPersonne, @RequestParam(required = false) MultipartFile fichierCours) {
-//		Cours currentCours= coursService.findOne(Long.parseLong(idCours));
-//		try {
-//			currentCours.setFichierCours(fichierCours.getBytes());
-//			return coursService.updaterCours(idCours, idPersonne, fichierCours.getBytes().toString());
-//		} catch (Exception ex) {
-//			ex.printStackTrace();
-//			return null;
-//		}
-//	}
-  
-	/*
-	@PostMapping("/enseignants/examens")
-	public Examen insererExamen(@RequestParam String idExam, @RequestParam String idPersonne, @RequestParam(required=false) MultipartFile fichierExamen) {
-		try {
-			Examen currentExamen = new Examen();
-			currentExamen.setFichierExamen(fichierExamen.getBytes());
-			
-			return examenService.insererExamen(idExam, idPersonne);
-			
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			return null;
-		}
-	
-	}
-	*/
-	
-	@PutMapping("/enseignants/examens")
-	public Examen updaterExamen(@RequestParam String idExam, @RequestParam String idPersonne, @RequestParam(required =false) MultipartFile fichierExamen) {
-		Examen currentExamen= examenService.findOne(Long.parseLong(idExam));
-		try {
-			currentExamen.setFichierExamen(fichierExamen.getBytes());
-			return examenService.insererExamen(idExam, idPersonne);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			return null;
-		}
-	
 	}
 
+	@GetMapping("/enseignants/cours/{idC}")
+	public String afficherEnseignantCours(@PathVariable String idC, @RequestParam(required = false) String idE,
+			@RequestParam(required = false) String idR) {
+		try {
+			if (idE != null) {
+				Enseignant e = enseignantService.afficherEnseignantCours(idC, idE);
+				return e.toString();
+			} else {
+				String msg = "";
+				List<Enseignant> es;
+				if (idR != null) {
+					es = enseignantService.afficherEnseignantsAdminCours(idC, idR);
+
+				} else {
+					es = enseignantService.afficherEnseignantsCours(idC);
+
+				}
+				for (Enseignant e : es) {
+					msg = msg + "\n" + e.toString();
+				}
+				return msg;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return "Error";
+		}
+	}
+	
+	@GetMapping("/enseignants/etudiant/{idEtudiant}")
+	public String afficherEnseignantEtudiant(@PathVariable String idEtudiant, @RequestParam(required = false) String idEnseignant,
+			@RequestParam(required = false) String idR) {
+		try {
+			if (idEnseignant != null) {
+				System.out.println(idEnseignant);
+				Enseignant e = enseignantService.afficherEnseignantEtudiant(idEtudiant, idEnseignant);
+				return e.toString();
+			} else {
+				String msg = "";
+				List<Enseignant> es;
+				if (idR != null) {
+					es = enseignantService.afficherEnseignantsAdminEtudiant(idEtudiant, idR);
+
+				} else {
+					es = enseignantService.afficherEnseignantsEtudiant(idEtudiant);
+
+				}
+				for (Enseignant e : es) {
+					msg = msg + "\n" + e.toString();
+				}
+				return msg;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return "Error";
+		}
+	}
+	
 	@PostMapping("/enseignants")
 	public Enseignant saveEnseignant(@RequestParam(required = false) String nom,
 			@RequestParam(required = false) String prenom, @RequestParam(required = false) String username,
@@ -201,9 +205,85 @@ public class EnseignantController {
 			return "failed";
 		}
 	}
-
-	@GetMapping("/enseignants/cours/commentaires")
-	public List<Evaluation> listCommentaires(@RequestParam String idCours) {
-		return evaluationService.listCommentaires(idCours);
+	
+	@DeleteMapping("/enseignants/{id}")
+	public void deleteEnseignant(@PathVariable Long id) {
+		enseignantService.delete(id);
 	}
+
 }
+	
+	//
+//	@GetMapping("/enseignants/examens/fichierReponses")
+//	public List<Examen> listReponsesEleves(@RequestParam String id) {
+//		return examenService.listReponsesEleves(id);
+//	}
+//
+//	@GetMapping("/enseignants/examens/fichierExamens")
+//	List<Examen> listExamen(@RequestParam String id) {
+//		return examenService.listExamen(id);
+//	}
+//
+//	@GetMapping("/enseignants/corrections/notes")
+//	public List<Correction> listnotesEleves(String idCorrection) {
+//		return correctionService.listnotesEleves(idCorrection);
+//	}
+//
+//	@DeleteMapping("/enseignants/{id}")
+//	public void deleteEnseignant(@PathVariable Long id) {
+//		enseignantService.delete(id);
+//	}
+	/*
+	 * @PostMapping("/enseignants/cours") public Cours insererCours(@RequestParam
+	 * String idCours,@RequestParam String idPersonne, @RequestParam(required =
+	 * false) MultipartFile fichierCours) { try { return
+	 * coursService.insererCours(idCours, idPersonne, fichierCours);
+	 * 
+	 * } catch (Exception ex) { ex.printStackTrace(); return null; } }
+	 */
+
+//	@PutMapping("/enseignants/cours")
+//	public Cours updaterCours(@RequestParam String idCours,@RequestParam String idPersonne, @RequestParam(required = false) MultipartFile fichierCours) {
+//		Cours currentCours= coursService.findOne(Long.parseLong(idCours));
+//		try {
+//			currentCours.setFichierCours(fichierCours.getBytes());
+//			return coursService.updaterCours(idCours, idPersonne, fichierCours.getBytes().toString());
+//		} catch (Exception ex) {
+//			ex.printStackTrace();
+//			return null;
+//		}
+//	}
+
+	/*
+	 * @PostMapping("/enseignants/examens") public Examen
+	 * insererExamen(@RequestParam String idExam, @RequestParam String
+	 * idPersonne, @RequestParam(required=false) MultipartFile fichierExamen) { try
+	 * { Examen currentExamen = new Examen();
+	 * currentExamen.setFichierExamen(fichierExamen.getBytes());
+	 * 
+	 * return examenService.insererExamen(idExam, idPersonne);
+	 * 
+	 * } catch (Exception ex) { ex.printStackTrace(); return null; }
+	 * 
+	 * }
+	 */
+
+//	@PutMapping("/enseignants/examens")
+//	public Examen updaterExamen(@RequestParam String idExam, @RequestParam String idPersonne, @RequestParam(required =false) MultipartFile fichierExamen) {
+//		Examen currentExamen= examenService.findOne(Long.parseLong(idExam));
+//		try {
+//			currentExamen.setFichierExamen(fichierExamen.getBytes());
+//			return examenService.insererExamen(idExam, idPersonne);
+//		} catch (Exception ex) {
+//			ex.printStackTrace();
+//			return null;
+//		}
+//	
+//	}
+
+
+//	@GetMapping("/enseignants/cours/commentaires")
+//	public List<Evaluation> listCommentaires(@RequestParam String idCours) {
+//		return evaluationService.listCommentaires(idCours);
+//	}
+

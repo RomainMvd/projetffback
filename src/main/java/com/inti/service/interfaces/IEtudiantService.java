@@ -19,6 +19,8 @@ public interface IEtudiantService {
 	List<Etudiant> findAll();
 
 	List<Etudiant> findAllTri();
+	
+	List<Etudiant> findByOrderByMoyenneAsc();
 
 	List<Etudiant> afficherEtudiantsClasse(String idC);
 

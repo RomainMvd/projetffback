@@ -29,6 +29,11 @@ public class EtudiantService implements IEtudiantService {
 	public List<Etudiant> findAllTri() {
 		return etudiantRepository.findAllTri();
 	}
+	
+	@Override
+	public List<Etudiant> findByOrderByMoyenneAsc() {
+		return etudiantRepository.findByOrderByMoyenneAsc();
+	}
 
 	@Override
 	public Etudiant findOne(Long idEtudiant) {
@@ -89,6 +94,7 @@ public class EtudiantService implements IEtudiantService {
 	public Etudiant afficherEtudiantEnseignant(String idEnseignant, String idEtudiant) {
 		return etudiantRepository.afficherEtudiantEnseignant(idEnseignant, idEtudiant);
 	}
+
 	
 	
 

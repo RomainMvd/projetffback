@@ -95,6 +95,11 @@ public class CoursService implements ICoursService{
 	public List<Cours> afficherCoursEnseignantAdmin(String idR, String idE) {
 		return coursRepository.afficherCoursEnseignantAdmin(idR, idE);
 	}
+
+	@Override
+	public List<Cours> afficherCoursClasseAll(String idC) {
+		return coursRepository.afficherCoursClasseAll(idC);
+	}
 	
 	
 
