@@ -23,14 +23,6 @@ public class Presentiel extends Cours implements Serializable{
 		this.salle = salle;
 	}
 
-	public String getLienZoom() {
-		return salle;
-	}
-
-	public void setLienZoom(String salle) {
-		this.salle = salle;
-	}
-
 	public String getSalle() {
 		return salle;
 	}

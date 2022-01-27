@@ -26,11 +26,6 @@ public class CoursController {
 	@Autowired
 	ICoursService coursService;
 
-//	@GetMapping("/cours")
-//	public List<Cours> findAll() {
-//		return coursService.findAll();
-//	}
-
 	@GetMapping("/cours")
 	public List<Cours> afficherCours(@RequestParam(required = false) String t) {
 		if (t != null) {
@@ -53,34 +48,37 @@ public class CoursController {
 			return coursService.findAll();
 		}
 	}
-
-	// A retravailler
-	@GetMapping("/cours/classe/{idClasse}")
-	public String afficherCoursClasse(@PathVariable String idClasse, @RequestParam(required = false) String e) {
-		try {
-			List<Cours> cs;
-			String msg = "";
-			if (e != null) {
-				System.out.println("here");
-				cs = coursService.afficherCoursClasseEtudiants(idClasse);
-			} else {
-				cs = coursService.afficherCoursClasse(idClasse);
-			}
-			for (Cours c : cs) {
-				msg = msg + '\n' + c.toString();
-			}
-			return msg;
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			return "Error";
-		}
+	
+	@GetMapping("/cours/ct/{cType}")
+	public List<Cours> afficherCoursCoursType(@PathVariable String cType) {
+		return coursService.afficherCoursCoursType(cType);
+	}
+	
+	@GetMapping("/cours/nm/{nMatiere}")
+	public List<Cours> afficherCoursNomMatiere(@PathVariable String nMatiere) {
+		return coursService.afficherCoursNomMatiere(nMatiere);
 	}
 
-	@GetMapping("/cours/etudiant/{idE}")
-	public String afficherCoursEtudiant(@PathVariable String idE) {
-		return "k";
+	@GetMapping("/cours/personnet/{pType}")
+	public List<Cours> afficherCoursPersonnesType(@PathVariable String pType) {
+		return coursService.afficherCoursPersonnesType(pType);
 	}
-
+	
+	@GetMapping("/cours/personne/{idP}")
+	public List<Cours> afficherCoursPersonne(@PathVariable String idP) {
+		return coursService.afficherCoursPersonne(idP);
+	}
+	
+	@GetMapping("/cours/personne/admin")
+	public List<Cours> afficherCoursAdmin() {
+		return coursService.afficherCoursEnseignantsAdmin("1");
+	}
+	
+	@GetMapping("/cours/personne/admin/{idE}")
+	public List<Cours> afficherCoursAdmin(@PathVariable String idE) {
+		return coursService.afficherCoursEnseignantAdmin("1", idE);
+	}
+	
 	@GetMapping("/cours/{id}")
 	public Cours findOne(@PathVariable Long id) {
 		return coursService.findOne(id);
@@ -91,7 +89,6 @@ public class CoursController {
 		coursService.delete(id);
 	}
 
-	// WON'T BE USED ?
 	@PostMapping("/cours")
 	public String saveCours(@RequestParam(required = false) String nomCours,
 			@RequestParam(required = false) String matiere, @RequestParam(required = false) Double nbrHeure,
