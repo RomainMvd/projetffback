@@ -20,6 +20,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -51,6 +52,9 @@ public class Personne implements Serializable{
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "lecture", joinColumns = @JoinColumn(name="id_personne", referencedColumnName = "idPersonne"), inverseJoinColumns = @JoinColumn(name="id_cours", referencedColumnName = "idCours"))
 	private Set<Cours> courss = new HashSet<>();
+	
+//	@OneToMany(mappedBy = "personne")
+//	private Set<Evaluation> evaluations = new HashSet<>();
 	
 
 	public Personne(String nomPersonne, String prenomPersonne, Date dateNaissancePersonne, String username,

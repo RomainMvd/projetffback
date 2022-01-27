@@ -18,4 +18,5 @@ public interface IPersonneService {
 	Personne findByUsername(String username);
 	
 	List<Personne> listPersonnesClasseType(String idClasse, String type);
+	
 }

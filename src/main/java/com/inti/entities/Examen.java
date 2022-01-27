@@ -38,6 +38,10 @@ public class Examen implements Serializable{
 	@OneToOne(mappedBy = "examen")
 	@JoinColumn(name = "id_correction")
 	private Correction correction;
+	
+//	@ManyToOne
+//	@JoinColumn(name = "id_personne")
+//	private Personne personne;
 
 	public Long getIdExamen() {
 		return idExamen;
