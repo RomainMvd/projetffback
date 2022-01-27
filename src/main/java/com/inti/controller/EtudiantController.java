@@ -9,9 +9,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,104 +33,164 @@ public class EtudiantController {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
+//	@GetMapping("/etudiants")
+//	public String afficherEtudiant(@RequestParam(required = false) Long id, @RequestParam(required = false) String t) {
+//		if (id != null) {
+//			etudiantService.findOne(id);
+//			return etudiantService.findOne(id).toString();
+//		} else {
+//			List<Etudiant> es;
+//			String msg = "";
+//			if (t != null) {
+//				es = etudiantService.findAllTri();
+//			} else {
+//				es = etudiantService.findAll();
+//			}
+//			for (Etudiant e : es) {
+//				msg = msg + "\n" + e.toString();
+//			}
+//			return msg;
+//		}
+//	}
+	
+//	@GetMapping("/etudiants/classe/{idC}")
+//	public String afficherEtudiantClasse(@PathVariable String idC, @RequestParam(required = false) String idE,
+//			@RequestParam(required = false) String t) {
+//		try {
+//			if (idE != null) {
+//				Etudiant e = etudiantService.afficherEtudiantClasse(idC, idE);
+//				return e.toString();
+//			} else {
+//				String msg = "";
+//				List<Etudiant> es;
+//				if (t != null) {
+//					es = etudiantService.afficherEtudiantsClasseTri(idC);
+//
+//				} else {
+//					es = etudiantService.afficherEtudiantsClasse(idC);
+//
+//				}
+//				for (Etudiant e : es) {
+//					msg = msg + "\n" + e.toString();
+//				}
+//				return msg;
+//			}
+//		} catch (Exception ex) {
+//			ex.printStackTrace();
+//			return "Error";
+//		}
+//	}
+	
+//	@GetMapping("/etudiants/cours/{idC}")
+//	public String afficherEtudiantCours(@PathVariable String idC, @RequestParam(required = false) String idE,
+//			@RequestParam(required = false) String t) {
+//		try {
+//			if (idE != null) {
+//				Etudiant e = etudiantService.afficherEtudiantCours(idC, idE);
+//				return e.toString();
+//			} else {
+//				String msg = "";
+//				List<Etudiant> es;
+//				if (t != null) {
+//					es = etudiantService.afficherEtudiantsCoursTri(idC);
+//				} else {
+//					es = etudiantService.afficherEtudiantsCours(idC);
+//				}
+//				for (Etudiant e : es) {
+//					msg = msg + "\n" + e.toString();
+//				}
+//				return msg;
+//			}
+//		} catch (Exception ex) {
+//			ex.printStackTrace();
+//			return "Error";
+//		}
+//	}
+	
+//	@GetMapping("/etudiants/enseignant/{idEnseignant}")
+//	public String afficherEtudiantEnseignant(@PathVariable String idEnseignant,
+//			@RequestParam(required = false) String idE, @RequestParam String t) {
+//		try {
+//			if (idE != null) {
+//				Etudiant e = etudiantService.afficherEtudiantEnseignant(idEnseignant, idE);
+//				return e.toString();
+//			} else {
+//				String msg = "";
+//				List<Etudiant> es;
+//				if (t != null) {
+//					es = etudiantService.afficherEtudiantsEnseignantTri(idEnseignant);
+//				} else {
+//					es = etudiantService.afficherEtudiantsEnseignant(idEnseignant);
+//				}
+//				for (Etudiant e : es) {
+//					msg = msg + "\n" + e.toString();
+//				}
+//				return msg;
+//			}
+//		} catch (Exception ex) {
+//			ex.printStackTrace();
+//			return "Error";
+//		}
+//	}
+	
 	@GetMapping("/etudiants")
-	public String afficherEtudiant(@RequestParam(required = false) Long id, @RequestParam(required = false) String t) {
-		if (id != null) {
-			etudiantService.findOne(id);
-			return etudiantService.findOne(id).toString();
-		} else {
-			List<Etudiant> es;
-			String msg = "";
-			if (t != null) {
-				es = etudiantService.findAllTri();
-			} else {
-				es = etudiantService.findAll();
-			}
-			for (Etudiant e : es) {
-				msg = msg + "\n" + e.toString();
-			}
-			return msg;
+	public List<Etudiant> afficherEtudiants(@RequestParam(required = false) String t) {
+		if(t != null) {
+			return etudiantService.findAllTri();
 		}
+		else {
+			return etudiantService.findAll();
+		}
+	}
+	
+	@GetMapping("/etudiants/{idE}")
+	public Etudiant afficherEtudiant(@PathVariable Long idE) {
+		return etudiantService.findOne(idE);
 	}
 
 	@GetMapping("/etudiants/classe/{idC}")
-	public String afficherEtudiantClasse(@PathVariable String idC, @RequestParam(required = false) String idE,
-			@RequestParam(required = false) String t) {
-		try {
-			if (idE != null) {
-				Etudiant e = etudiantService.afficherEtudiantClasse(idC, idE);
-				return e.toString();
-			} else {
-				String msg = "";
-				List<Etudiant> es;
-				if (t != null) {
-					es = etudiantService.afficherEtudiantsClasseTri(idC);
-
-				} else {
-					es = etudiantService.afficherEtudiantsClasse(idC);
-
-				}
-				for (Etudiant e : es) {
-					msg = msg + "\n" + e.toString();
-				}
-				return msg;
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			return "Error";
+	public List<Etudiant> afficherEtudiantsClasse(@PathVariable String idC, @RequestParam(required = false) String t) {
+		if (t != null) {
+			return etudiantService.afficherEtudiantsClasseTri(idC);
+		}
+		else {
+			return etudiantService.afficherEtudiantsClasse(idC);
 		}
 	}
-
+	
+	@GetMapping("/etudiants/classe/{idC}/{idE}")
+	public Etudiant afficherEtudiantClasse(@PathVariable String idC, @PathVariable String idE) {
+		return etudiantService.afficherEtudiantClasse(idC, idE);
+	}
+	
 	@GetMapping("/etudiants/cours/{idC}")
-	public String afficherEtudiantCours(@PathVariable String idC, @RequestParam(required = false) String idE,
-			@RequestParam(required = false) String t) {
-		try {
-			if (idE != null) {
-				Etudiant e = etudiantService.afficherEtudiantCours(idC, idE);
-				return e.toString();
-			} else {
-				String msg = "";
-				List<Etudiant> es;
-				if (t != null) {
-					es = etudiantService.afficherEtudiantsCoursTri(idC);
-				} else {
-					es = etudiantService.afficherEtudiantsCours(idC);
-				}
-				for (Etudiant e : es) {
-					msg = msg + "\n" + e.toString();
-				}
-				return msg;
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			return "Error";
+	public List<Etudiant> afficherEtudiantsCours(@PathVariable String idC, @RequestParam(required = false) String t) {
+		if (t != null) {
+			return etudiantService.afficherEtudiantsCoursTri(idC);
 		}
+		else {
+			return etudiantService.afficherEtudiantsCours(idC);
+		}
+	}
+	
+	@GetMapping("/etudiants/cours/{idC}/{idE}")
+	public Etudiant afficherEtudiantCours(@PathVariable String idC, @PathVariable String idE) {
+		return etudiantService.afficherEtudiantCours(idC, idE);
 	}
 
 	@GetMapping("/etudiants/enseignant/{idEnseignant}")
-	public String afficherEtudiantEnseignant(@PathVariable String idEnseignant,
-			@RequestParam(required = false) String idE, @RequestParam String t) {
-		try {
-			if (idE != null) {
-				Etudiant e = etudiantService.afficherEtudiantEnseignant(idEnseignant, idE);
-				return e.toString();
-			} else {
-				String msg = "";
-				List<Etudiant> es;
-				if (t != null) {
-					es = etudiantService.afficherEtudiantsEnseignantTri(idEnseignant);
-				} else {
-					es = etudiantService.afficherEtudiantsEnseignant(idEnseignant);
-				}
-				for (Etudiant e : es) {
-					msg = msg + "\n" + e.toString();
-				}
-				return msg;
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			return "Error";
+	public List<Etudiant> afficherEtudiantsEnseignant(@PathVariable String idEnseignant, @RequestParam(required = false) String t) {
+		if (t!=null) {
+			return etudiantService.afficherEtudiantsEnseignantTri(idEnseignant);
 		}
+		else {
+			return etudiantService.afficherEtudiantsEnseignant(idEnseignant);
+		}
+	}
+	
+	@GetMapping("/etudiants/enseignant/{idEnseignant}/{idEtudiant}")
+	public Etudiant afficherEtudiantEnseignant(@PathVariable String idEnseignant, @PathVariable String idEtudiant) {
+		return etudiantService.afficherEtudiantEnseignant(idEnseignant, idEtudiant);
 	}
 
 	@DeleteMapping("/etudiants/{id}")
