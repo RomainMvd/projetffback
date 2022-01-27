@@ -205,12 +205,13 @@ public class EtudiantController {
 			@RequestParam(required = false) Date dateNaissance, @RequestParam(required = false) MultipartFile photo,
 			@RequestParam(required = false) Double moyenne, @RequestParam(required = false) Set<Role> roles,
 			@RequestParam(required = false) Set<Cours> courss) {
+		System.out.println(password);
 		try {
 			Etudiant currentEtudiant = new Etudiant();
 			currentEtudiant.setNomPersonne(nom);
 			currentEtudiant.setPrenomPersonne(prenom);
 			currentEtudiant.setUsername(username);
-			currentEtudiant.setPassword(passwordEncoder.encode(password));
+			// currentEtudiant.setPassword(passwordEncoder.encode(password));
 			currentEtudiant.setEmail(email);
 			currentEtudiant.setDateNaissancePersonne(dateNaissance);
 			if (photo != null) {
