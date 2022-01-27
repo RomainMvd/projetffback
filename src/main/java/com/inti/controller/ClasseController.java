@@ -35,13 +35,33 @@ public class ClasseController {
 	IClasseService classeService;
 	
 	@GetMapping("/classes")
-	public List<Classe> findAll() {
-		return classeService.findAll();
+	public List<Classe> afficherClasses(@RequestParam(required = false) String t) {
+		if (t != null) {
+			return classeService.findAllTriNomClasse();
+		}
+		else {
+			return classeService.findAll();
+		}
+	}
+	
+	@GetMapping("/classes/personne/{idP}")
+	public List<Classe> afficherClassesPersonne(@PathVariable String idP) {
+		return classeService.afficherClassesPersonne(idP);
+	}
+	
+	@GetMapping("/classes/enseignant/{idE}")
+	public List<Classe> afficherClassesEnseignantAdmin(@PathVariable String idE) {
+		return classeService.afficherClassesEnseignantAdmin(idE);
 	}
 	
 	@GetMapping("/classes/{id}")
 	public Classe findOne(@PathVariable Long id) {
 		return classeService.findOne(id);
+	}
+	
+	@GetMapping("/classes/nc")
+	public Classe afficherClasseNomClasse(@RequestParam String nc) {
+		return classeService.findByNomClasse(nc);
 	}
 	
 	@DeleteMapping("/classes/{id}")
@@ -57,7 +77,6 @@ public class ClasseController {
 		return classeService.save(currentClasse);
 	}
 	
-	// Cette méthode efface les valeurs non modifiées
 	@PutMapping("/classes/{id}")
 	public Classe updateClasse(@PathVariable Long id, @RequestBody Classe classe) {
 		Classe currentClasse = classeService.findOne(id);
@@ -65,23 +84,8 @@ public class ClasseController {
 		currentClasse.setPersonnes(classe.getPersonnes());
 		return classeService.save(currentClasse);
 	}
-	
-	// Celle là non
-//	@PutMapping("/classes/{id}")
-//	public Classe updateClasse(@PathVariable Long id, @RequestBody Classe classe) {
-//		Classe currentClasse = classeService.findOne(id);
-//		System.out.println(classe.getPersonnes());
-//		if(classe.getNomClasse() != null) {
-//			currentClasse.setNomClasse(classe.getNomClasse());
-//		}
-//		Boolean containNull = Arrays.stream(classe.getPersonnes().toArray()).allMatch(Objects::nonNull);
-//		if ( !containNull ) {
-//			System.out.println("here");
-//			currentClasse.setPersonnes(classe.getPersonnes());
-//		}
-//		return classeService.save(currentClasse);
-//	}
-//	
+
+}
 	
 //	// TEST
 //	
@@ -117,4 +121,4 @@ public class ClasseController {
 //		return new ResponseEntity<>(classeService.findAll(),HttpStatus.OK);
 //	}
 
-}
+
