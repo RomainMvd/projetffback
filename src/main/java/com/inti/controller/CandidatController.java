@@ -1,5 +1,6 @@
 package com.inti.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -45,7 +46,7 @@ public class CandidatController {
 	public Candidat saveCandidat(@RequestParam(required = false) String nom,
 			@RequestParam(required = false) String prenom, @RequestParam(required = false) String username,
 			@RequestParam(required = false) String password, @RequestParam(required = false) String email,
-			@RequestParam(required = false) Date dateNaissance, @RequestParam(required = false) MultipartFile photo,
+			@RequestParam(required = false) String dateNaissance, @RequestParam(required = false) MultipartFile photo,
 			 @RequestParam(required = false) MultipartFile lm,  @RequestParam(required = false) MultipartFile cv,
 			 @RequestParam(required = false) String poste) {
 		try {
@@ -55,7 +56,8 @@ public class CandidatController {
 			currentCandidat.setUsername(username);
 			currentCandidat.setPassword(passwordEncoder.encode(password));
 			currentCandidat.setEmail(email);
-			currentCandidat.setDateNaissancePersonne(dateNaissance);
+			Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateNaissance);
+			currentCandidat.setDateNaissancePersonne(date);
 			if (photo != null) {
 				currentCandidat.setPhotoProfil(photo.getBytes());
 			}
@@ -77,7 +79,7 @@ public class CandidatController {
 	public Candidat updateCandidat(@PathVariable Long id,@RequestParam(required = false) String nom,
 			@RequestParam(required = false) String prenom, @RequestParam(required = false) String username,
 			@RequestParam(required = false) String password, @RequestParam(required = false) String email,
-			@RequestParam(required = false) Date dateNaissance, @RequestParam(required = false) MultipartFile photo,
+			@RequestParam(required = false) String dateNaissance, @RequestParam(required = false) MultipartFile photo,
 			 @RequestParam(required = false) MultipartFile lm,  @RequestParam(required = false) MultipartFile cv,
 			 @RequestParam(required = false) String poste) {
 		Candidat currentCandidat = candidatService.findOne(id);
@@ -87,7 +89,8 @@ public class CandidatController {
 			currentCandidat.setUsername(username);
 			currentCandidat.setPassword(passwordEncoder.encode(password));
 			currentCandidat.setEmail(email);
-			currentCandidat.setDateNaissancePersonne(dateNaissance);
+			Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateNaissance);
+			currentCandidat.setDateNaissancePersonne(date);
 			if (photo != null) {
 				currentCandidat.setPhotoProfil(photo.getBytes());
 			}
