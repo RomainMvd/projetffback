@@ -1,5 +1,6 @@
 package com.inti.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -45,25 +46,27 @@ public class ExamenController {
 	public String saveExamen(
 			@RequestParam(required = false) String nomExamen,
 			@RequestParam(required = false) String duree,
-			@RequestParam(required = false) Date date,
+			@RequestParam(required = false) String date,
 			@RequestParam(required = false) MultipartFile fichierIn,
-			@RequestParam(required = false) MultipartFile fichierOut,
-			@RequestParam(required = false) Cours cours,
-			@RequestParam(required = false) Correction correction
-			) {
+			@RequestParam(required = false) MultipartFile fichierOut
+			//@RequestParam(required = false) Cours cours,
+			//@RequestParam(required = false) Correction correction
+			) {System.out.println(date);
+			
 		try {
+			Date dateI = new SimpleDateFormat("yyyy-MM-dd").parse(date);
 			Examen currentExamen = new Examen();
 			currentExamen.setNomExamen(nomExamen);
 			currentExamen.setDuree(duree);
-			currentExamen.setDateExamen(date);
+			currentExamen.setDateExamen(dateI);
 			if(fichierIn != null) {
 				currentExamen.setFichierExamen(fichierIn.getBytes());
 			}
 			if(fichierOut != null) {
 				currentExamen.setFichierReponseExamen(fichierOut.getBytes());
 			}
-			currentExamen.setCours(cours);
-			currentExamen.setCorrection(correction);
+			//currentExamen.setCours(cours);
+			//currentExamen.setCorrection(correction);
 			examenService.save(currentExamen);
 			return "Brace yourself, examen is coming";
 		}catch(Exception ex) {
@@ -103,4 +106,5 @@ public class ExamenController {
 			return "Failed";
 		}
 	}
+	
 }
