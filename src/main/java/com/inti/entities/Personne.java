@@ -113,6 +113,7 @@ public class Personne implements Serializable{
 		this.prenomPersonne = prenomPersonne;
 	}
 
+
 	public Date getDateNaissancePersonne() {
 		return dateNaissancePersonne;
 	}

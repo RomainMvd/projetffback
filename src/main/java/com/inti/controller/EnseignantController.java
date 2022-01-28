@@ -1,14 +1,11 @@
 package com.inti.controller;
 
-
-
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import java.util.List;
 
 import java.util.Set;
-
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -36,8 +33,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.web.multipart.MultipartFile;
 
-
-
 import com.inti.entities.Correction;
 
 import com.inti.entities.Cours;
@@ -64,29 +59,19 @@ import com.inti.service.interfaces.IEvaluationService;
 
 import com.inti.service.interfaces.IExamenService;
 
-
-
 @RestController
 
 @CrossOrigin
 
 public class EnseignantController {
 
-
-
 	@Autowired
 
 	IEnseignantService enseignantService;
 
-
-
 	@Autowired
 
 	PasswordEncoder passwordEncoder;
-
-	
-
-	
 
 //	@GetMapping("/enseignants")
 
@@ -244,8 +229,6 @@ public class EnseignantController {
 
 //	}
 
-	
-
 	@GetMapping("/enseignants")
 
 	public List<Enseignant> afficherEnseignants(@RequestParam(required = false) String a) {
@@ -266,11 +249,9 @@ public class EnseignantController {
 
 	}
 
-	
-
 	@GetMapping("/enseignants/{idE}")
 
-	public Enseignant afficherEnseignant(@PathVariable Long idE,@RequestParam(required = false) String a) {
+	public Enseignant afficherEnseignant(@PathVariable Long idE, @RequestParam(required = false) String a) {
 
 		if (a != null) {
 
@@ -282,13 +263,12 @@ public class EnseignantController {
 
 	}
 
-
-
 	@GetMapping("/enseignants/classe/{idC}")
 
-	public List<Enseignant> afficherEnseignantsClasse(@PathVariable String idC, @RequestParam(required = false) String a) {
+	public List<Enseignant> afficherEnseignantsClasse(@PathVariable String idC,
+			@RequestParam(required = false) String a) {
 
-		if (a != null ) {
+		if (a != null) {
 
 			return enseignantService.afficherEnseignantsAdminClasse(idC, "1");
 
@@ -302,13 +282,12 @@ public class EnseignantController {
 
 	}
 
-	
-
 	@GetMapping("/enseignants/classe/{idC}/{idE}")
 
-	public Enseignant afficherEnseignantClasse(@PathVariable String idC, @PathVariable String idE, @RequestParam(required = false) String a) {
+	public Enseignant afficherEnseignantClasse(@PathVariable String idC, @PathVariable String idE,
+			@RequestParam(required = false) String a) {
 
-		if (a != null ) {
+		if (a != null) {
 
 			return enseignantService.afficherEnseignantAdminClasse(idC, "1", idE);
 
@@ -322,13 +301,12 @@ public class EnseignantController {
 
 	}
 
-	
-
 	@GetMapping("/enseignants/cours/{idC}")
 
-	public List<Enseignant> afficherEnseignantsCours(@PathVariable String idC, @RequestParam(required = false) String a) {
+	public List<Enseignant> afficherEnseignantsCours(@PathVariable String idC,
+			@RequestParam(required = false) String a) {
 
-		if ( a != null) {
+		if (a != null) {
 
 			return enseignantService.afficherEnseignantsAdminCours(idC, "1");
 
@@ -342,11 +320,10 @@ public class EnseignantController {
 
 	}
 
-	
-
 	@GetMapping("/enseignants/cours/{idC}/{idE}")
 
-	public Enseignant afficherEnseignantCours(@PathVariable String idC, @PathVariable String idE, @RequestParam(required = false) String a) {
+	public Enseignant afficherEnseignantCours(@PathVariable String idC, @PathVariable String idE,
+			@RequestParam(required = false) String a) {
 
 		if (a != null) {
 
@@ -362,11 +339,10 @@ public class EnseignantController {
 
 	}
 
-
-
 	@GetMapping("/enseignants/etudiant/{idEtudiant}")
 
-	public List<Enseignant> afficherEnseignantsEtudiant(@PathVariable String idEtudiant, @RequestParam(required = false) String a) {
+	public List<Enseignant> afficherEnseignantsEtudiant(@PathVariable String idEtudiant,
+			@RequestParam(required = false) String a) {
 
 		if (a != null) {
 
@@ -382,13 +358,12 @@ public class EnseignantController {
 
 	}
 
-	
-
 	@GetMapping("/enseignants/etudiant/{idEtudiant}/{idEnseignant}")
 
-	public Enseignant afficherEnseignantEtudiant(@PathVariable String idEtudiant, @PathVariable String idEnseignant, @RequestParam(required = false) String a) {
+	public Enseignant afficherEnseignantEtudiant(@PathVariable String idEtudiant, @PathVariable String idEnseignant,
+			@RequestParam(required = false) String a) {
 
-		if ( a != null) {
+		if (a != null) {
 
 			return enseignantService.afficherEnseignantAdminEtudiant(idEtudiant, "1", idEnseignant);
 
@@ -402,63 +377,34 @@ public class EnseignantController {
 
 	}
 
-	
-
 	@PostMapping("/enseignants")
-
 	public Enseignant saveEnseignant(@RequestParam(required = false) String nom,
-
 			@RequestParam(required = false) String prenom, @RequestParam(required = false) String username,
-
 			@RequestParam(required = false) String password, @RequestParam(required = false) String email,
-
-			@RequestParam(required = false) Date dateNaissance, @RequestParam(required = false) MultipartFile photo,
-
+			@RequestParam(required = false) String dateNaissance, @RequestParam(required = false) MultipartFile photo,
 			@RequestParam(required = false) Double salaire, @RequestParam(required = false) Set<Role> roles,
-
 			@RequestParam(required = false) Set<Cours> courss) {
-
 		try {
-
 			Enseignant currentEnseignant = new Enseignant();
-
 			currentEnseignant.setNomPersonne(nom);
-
 			currentEnseignant.setPrenomPersonne(prenom);
-
 			currentEnseignant.setUsername(username);
-
 			currentEnseignant.setPassword(passwordEncoder.encode(password));
-
 			currentEnseignant.setEmail(email);
-
-			currentEnseignant.setDateNaissancePersonne(dateNaissance);
-
+			Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateNaissance);
+			currentEnseignant.setDateNaissancePersonne(date);
 			if (photo != null) {
-
 				currentEnseignant.setPhotoProfil(photo.getBytes());
-
 			}
-
 			currentEnseignant.setSalaire(salaire);
-
 			currentEnseignant.setRoles(roles);
-
 			currentEnseignant.setCourss(courss);
-
 			return enseignantService.save(currentEnseignant);
-
 		} catch (Exception ex) {
-
 			ex.printStackTrace();
-
 			return null;
-
 		}
-
 	}
-
-
 
 	@PutMapping("/enseignants/{id}")
 
@@ -516,23 +462,15 @@ public class EnseignantController {
 
 	}
 
-	
-
 	@DeleteMapping("/enseignants/{id}")
 
 	public void deleteEnseignant(@PathVariable Long id) {
 
 		enseignantService.delete(id);
-
 	}
-
-
-
 }
 
-	
-
-	//
+//
 
 //	@GetMapping("/enseignants/examens/fichierReponses")
 
@@ -572,23 +510,21 @@ public class EnseignantController {
 
 //	}
 
-	/*
-
-	 * @PostMapping("/enseignants/cours") public Cours insererCours(@RequestParam
-
-	 * String idCours,@RequestParam String idPersonne, @RequestParam(required =
-
-	 * false) MultipartFile fichierCours) { try { return
-
-	 * coursService.insererCours(idCours, idPersonne, fichierCours);
-
-	 * 
-
-	 * } catch (Exception ex) { ex.printStackTrace(); return null; } }
-
-	 */
-
-
+/*
+ * 
+ * @PostMapping("/enseignants/cours") public Cours insererCours(@RequestParam
+ * 
+ * String idCours,@RequestParam String idPersonne, @RequestParam(required =
+ * 
+ * false) MultipartFile fichierCours) { try { return
+ * 
+ * coursService.insererCours(idCours, idPersonne, fichierCours);
+ * 
+ * 
+ * 
+ * } catch (Exception ex) { ex.printStackTrace(); return null; } }
+ * 
+ */
 
 //	@PutMapping("/enseignants/cours")
 
@@ -612,40 +548,37 @@ public class EnseignantController {
 
 //	}
 
-<<<<<<< HEAD
-
-
-	/* 
-
-	 * @PostMapping("/enseignants/examens") public Examen -> "/examens/enseignants/{idEnseignant}
-
-=======
-	/* 
-	 * @PostMapping("/enseignants/examens") public Examen -> "/examens/enseignants/{idEnseignant}
->>>>>>> e07c2bbbd49248ef94968c42a1d7dc6838f95b88
-	 * insererExamen(@RequestParam String idExam, @RequestParam String
-
-	 * idPersonne, @RequestParam(required=false) MultipartFile fichierExamen) { try
-
-	 * { Examen currentExamen = new Examen();
-
-	 * currentExamen.setFichierExamen(fichierExamen.getBytes());
-
-	 * 
-
-	 * return examenService.insererExamen(idExam, idPersonne);
-
-	 * 
-
-	 * } catch (Exception ex) { ex.printStackTrace(); return null; }
-
-	 * 
-
-	 * }
-
-	 */
-
-
+/*
+ * 
+ * @PostMapping("/enseignants/examens") public Examen ->
+ * "/examens/enseignants/{idEnseignant}
+ * 
+ * ======= /*
+ * 
+ * @PostMapping("/enseignants/examens") public Examen ->
+ * "/examens/enseignants/{idEnseignant} >>>>>>>
+ * e07c2bbbd49248ef94968c42a1d7dc6838f95b88 insererExamen(@RequestParam String
+ * idExam, @RequestParam String
+ * 
+ * idPersonne, @RequestParam(required=false) MultipartFile fichierExamen) { try
+ * 
+ * { Examen currentExamen = new Examen();
+ * 
+ * currentExamen.setFichierExamen(fichierExamen.getBytes());
+ * 
+ * 
+ * 
+ * return examenService.insererExamen(idExam, idPersonne);
+ * 
+ * 
+ * 
+ * } catch (Exception ex) { ex.printStackTrace(); return null; }
+ * 
+ * 
+ * 
+ * }
+ * 
+ */
 
 //	@PutMapping("/enseignants/examens")
 
@@ -671,10 +604,6 @@ public class EnseignantController {
 
 //	}
 
-
-
-
-
 //	@GetMapping("/enseignants/cours/commentaires")
 
 //	public List<Evaluation> listCommentaires(@RequestParam String idCours) {
@@ -682,6 +611,3 @@ public class EnseignantController {
 //		return evaluationService.listCommentaires(idCours);
 
 //	}
-
-
-

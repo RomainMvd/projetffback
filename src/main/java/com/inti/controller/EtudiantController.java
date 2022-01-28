@@ -1,5 +1,6 @@
 package com.inti.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -202,18 +203,19 @@ public class EtudiantController {
 	public Etudiant saveEtudiant(@RequestParam(required = false) String nom,
 			@RequestParam(required = false) String prenom, @RequestParam(required = false) String username,
 			@RequestParam(required = false) String password, @RequestParam(required = false) String email,
-			@RequestParam(required = false) Date dateNaissance, @RequestParam(required = false) MultipartFile photo,
+			@RequestParam(required = false) String dateNaissance, @RequestParam(required = false) MultipartFile photo,
 			@RequestParam(required = false) Double moyenne, @RequestParam(required = false) Set<Role> roles,
 			@RequestParam(required = false) Set<Cours> courss) {
-		System.out.println(password);
+		System.out.println(password + nom + prenom + username + dateNaissance);
 		try {
 			Etudiant currentEtudiant = new Etudiant();
 			currentEtudiant.setNomPersonne(nom);
 			currentEtudiant.setPrenomPersonne(prenom);
 			currentEtudiant.setUsername(username);
-			// currentEtudiant.setPassword(passwordEncoder.encode(password));
+			currentEtudiant.setPassword(passwordEncoder.encode(password));
 			currentEtudiant.setEmail(email);
-			currentEtudiant.setDateNaissancePersonne(dateNaissance);
+			Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateNaissance);
+			currentEtudiant.setDateNaissancePersonne(date);
 			if (photo != null) {
 				currentEtudiant.setPhotoProfil(photo.getBytes());
 			}
@@ -231,7 +233,7 @@ public class EtudiantController {
 	public String updateEtudiant(@PathVariable Long id, @RequestParam(required = false) String nom,
 			@RequestParam(required = false) String prenom, @RequestParam(required = false) String username,
 			@RequestParam(required = false) String password, @RequestParam(required = false) String email,
-			@RequestParam(required = false) Date dateNaissance, @RequestParam(required = false) MultipartFile photo,
+			@RequestParam(required = false) String dateNaissance, @RequestParam(required = false) MultipartFile photo,
 			@RequestParam(required = false) Double moyenne, @RequestParam(required = false) Set<Role> roles,
 			@RequestParam(required = false) Set<Cours> courss) {
 		Etudiant currentEtudiant = etudiantService.findOne(id);
@@ -241,7 +243,8 @@ public class EtudiantController {
 			currentEtudiant.setUsername(username);
 			currentEtudiant.setPassword(passwordEncoder.encode(password));
 			currentEtudiant.setEmail(email);
-			currentEtudiant.setDateNaissancePersonne(dateNaissance);
+			Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateNaissance);
+			currentEtudiant.setDateNaissancePersonne(date);
 			if (photo != null) {
 				currentEtudiant.setPhotoProfil(photo.getBytes());
 			}
